@@ -1,0 +1,155 @@
+@import url('https://fonts.googleapis.com/css?family=Noto+Sans+KR:100,300,400,500,700,900&display=swap&subset=korean');
+body, html {
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    font-family: 'Noto Sans KR', sans-serif;
+}
+
+/***** 메뉴 *****/
+#mainNav {
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    font-weight: 700;
+    font-family: 'Montserrat';
+    webkit-box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.15);
+    -moz-box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.15);
+    box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.15);
+    background : #000;
+}
+
+#mainNav a {
+    color : #fff;
+}
+
+/* 로고 색깔 */
+/*#mainNav .navbar-brand {
+    color: #000;
+  }*/
+
+#mainNav .navbar-nav {
+    margin-top: 1rem;
+    letter-spacing: 0.0625rem;
+}
+
+/*#mainNav .navbar-nav li.nav-item a.nav-link {
+    color: #000;
+  }*/
+
+#mainNav .navbar-nav li.nav-item a.nav-link:hover {
+    color: #5C6BC0;
+    background : #000;
+  }
+
+#mainNav .navbar-nav li.nav-item a.nav-link:active, #mainNav .navbar-nav li.nav-item a.nav-link:focus {
+    color: #5C6BC0;
+}
+
+#mainNav .navbar-nav li.nav-item a.nav-link.active {
+    color: #fff;
+}
+
+/*#mainNav .navbar-toggler {
+    font-size: 80%;
+    padding: 0.8rem;
+    background-color:#000;
+  }*/
+
+@media (min-width: 992px) {
+    #mainNav {
+        /*    padding-top: 1.5rem;
+      padding-bottom: 1.5rem; */
+        -webkit-transition: padding-top 0.3s, padding-bottom 0.3s;
+        -moz-transition: padding-top 0.3s, padding-bottom 0.3s;
+        transition: padding-top 0.3s, padding-bottom 0.3s;
+    }
+    #mainNav .navbar-brand {
+        font-size: 2em;
+        -webkit-transition: font-size 0.3s;
+        -moz-transition: font-size 0.3s;
+        transition: font-size 0.3s;
+    }
+    #mainNav .navbar-nav {
+        margin-top: 0;
+    }
+    #mainNav .navbar-nav>li.nav-item>a.nav-link.active {
+        color: #fff;
+        background: #5C6BC0;
+    }
+    #mainNav .navbar-nav>li.nav-item>a.nav-link.active:active, #mainNav .navbar-nav>li.nav-item>a.nav-link.active:focus, #mainNav .navbar-nav>li.nav-item>a.nav-link.active:hover {
+        color: #fff;
+        background: #5C6BC0;
+    }
+    /*  #mainNav.navbar-shrink {
+      padding-top: 0.5rem;
+      padding-bottom: 0.5rem;
+    }*/
+    #mainNav.navbar-shrink .navbar-brand {
+        font-size: 1.5em;
+    }
+}
+
+/***** 메뉴 끝 *****/
+
+/***** 공통 *****/
+section {
+    margin-top:90px;
+    padding: 10rem 0 6rem 0;
+}
+/***** 공통 끝 *****/
+
+/***** index 인덱스 *****/
+#introduction{
+    padding-left : 30px;
+    font-size : 30px;
+    font-weight: 500;
+}
+.searchbar {
+    margin-bottom: auto;
+    margin-top: auto;
+    height: 60px;
+    background-color: #283747;
+    border-radius: 30px;
+    padding: 10px;
+    width : 100%;
+}
+
+.search_input {
+    color: white;
+    border: 0;
+    outline: 0;
+    background: none;
+    width: 0;
+    caret-color: transparent;
+    line-height: 40px;
+    padding: 0 10px;
+    /* width: 450px; */
+    /* caret-color: red; */
+    /*transition: width 0.4s linear;*/
+}
+
+/* .searchbar:hover>.search_input {
+    padding: 0 10px;
+    width: 450px;
+    caret-color: red;
+    transition: width 0.4s linear;
+} */
+
+.searchbar:hover>.search_icon {
+    background: white;
+    color: #000; 
+}
+
+.search_icon {
+    height: 40px;
+    width: 40px;
+    float: right;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    color: white;
+}
+
+/***** index 인덱스 *****/
