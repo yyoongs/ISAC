@@ -63,6 +63,7 @@ body, html {
         -webkit-transition: padding-top 0.3s, padding-bottom 0.3s;
         -moz-transition: padding-top 0.3s, padding-bottom 0.3s;
         transition: padding-top 0.3s, padding-bottom 0.3s;
+        position:relative;
     }
     #mainNav .navbar-brand {
         font-size: 2em;
@@ -153,3 +154,29 @@ section {
 }
 
 /***** index 인덱스 *****/
+
+/***** qna.html *****/
+#qna_section {
+    border:1px solid #5a6268;
+    padding:20px 30px;
+}
+
+#a_section {
+    padding-top:5px;
+}
+
+.title {
+    font-size:20px;
+}
+
+.contents {
+    font-size:16px;
+    margin-top:20px;
+    line-height: 1.7;
+}
+/***** qna.html *****/
+
+/***** mobum.html *****/
+.list-group {
+    list-style: none;
+}
