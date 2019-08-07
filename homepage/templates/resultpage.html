@@ -6,15 +6,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="asset/css/bootstrap.min.css">
-    <link rel="stylesheet" href="asset/css/style.css">
-    <title>ISAC</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <title>ISAC 실시간 상담 조회</title>
 </head>
 
-<body>
+<body  style="background-image: url('/static/img/newww.jpg')">
     <nav class="navbar navbar-expand-sm fixed-top text-uppercase" id="mainNav">
         <div class="container">
-            <a class="navbar-brand js-scroll-trigger" href="#">ISAC</a>
+            <a class="navbar-brand js-scroll-trigger" href="/">ISAC</a>
             <button class="navbar-toggler navbar-toggler-right text-uppercase bg-primary text-white rounded"
                 type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive"
                 aria-expanded="false" aria-label="Toggle navigation">
@@ -22,13 +22,13 @@
             <div class="collapse navbar-collapse" id="navbarResponsive">
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item ml-auto">
-                        <a class="nav-link py-3 px-0 px-lg-3 rounded" href="#">실시간 상담</a>
+                        <a class="nav-link py-3 px-0 px-lg-3 rounded" href="/rightnow">실시간 상담</a>
                     </li>
                     <li class="nav-item ml-auto">
-                        <a class="nav-link py-3 px-0 px-lg-3 rounded" href="#">관련 상담조회</a>
+                        <a class="nav-link py-3 px-0 px-lg-3 rounded" href="/relation">관련 상담조회</a>
                     </li>
                     <li class="nav-item ml-auto">
-                        <a class="nav-link py-3 px-0 px-lg-3 rounded" href="#">고객센터</a>
+                        <a class="nav-link py-3 px-0 px-lg-3 rounded" href="/custom">고객센터</a>
                     </li>
                 </ul>
             </div>
@@ -37,28 +37,26 @@
 
     <section>
         <div class="container">
-            <div class="row">
-                <div class="col-md-6 offset-md-3" id="introduction">
-                        킹갓제너럴아이작
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-sm-6 offset-sm-3">
-                    <div class="d-flex justify-content-center">
-                        <div class="searchbar">
-                            <input class="search_input" type="text" name="" placeholder="Search...">
-                            <a href="#" class="search_icon"><i class="fas fa-search"></i></a>
+            <h1>실시간 상담 조회</h1>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-8" style="background-color: #6c757d">
+                        <h1>여기에 상담결과창 보여주기</h1>
+                        </div>
+                        <div class="col" style="background-color: #c69500;">
+                        <h4>여기에 추천창 보여주기</h4>
                         </div>
                     </div>
+
+
                 </div>
-            </div>
         </div>
     </section>
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Bootstrap JS -->
-    <script src="asset/js/jquery-3.4.1.min.js"></script>
-    <script src="asset/js/bootstrap.min.js"></script>
+    <script src="static/js/jquery-3.4.1.min.js"></script>
+    <script src="static/js/bootstrap.min.js"></script>
 </body>
 
 </html>
