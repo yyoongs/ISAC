@@ -2,20 +2,98 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
+    <style>
+        .card {
+            margin-bottom: 10px;
+        }
+
+        .card-header {
+            background-color : #ABEBC6;
+        }
+        .card-header > a:link,
+        .card-header > a:visited,
+        .answer-body > .list-group > .list-group-item > a:link,
+        .answer-body > .list-group > .list-group-item > a:visited {
+            color : #000;
+        }
+
+        .card-header > a:hover,
+        .card-header > a:active,
+        .answer-body > .list-group > .list-group-item > a:hover,
+        .answer-body > .list-group > .list-group-item > a:active{
+            color : #F1C40F;
+            text-decoration : none;
+        }
+    </style>
     <title>Title</title>
 </head>
+
 <body>
-    <div class="row">
-        <div class="sticky-top" style="width:100%">
-            <ul class="list-group">
-                <li class="list-group-item list-group-item-dark">Menu</li>
-                <li><a href="#" class="list-group-item">first mobum answer</a></li>
-                <li><a href="#" class="list-group-item">Second mobum answer</a></li>
-                <li><a href="#" class="list-group-item">Third mobum answer</a></li>
-                <li><a href="#" class="list-group-item">Fourth mobum answer</a></li>
-                <li><a href="#" class="list-group-item">Fifth mobum answer</a></li>
+<div class="row">
+    <div class="card w-100">
+        <h5 class="card-header">
+            {#        <h4 class="card-title">#}
+            <a data-toggle="collapse" data-target="#mobumAnswer" aria-expanded="false" aria-controls="mobumAnswer"
+               href="#mobumAnswer"><span
+                    class="glyphicon glyphicon-folder-close">
+                    </span>모범 답변</a>
+            {#        </h4>#}
+        </h5>
+        <div id="mobumAnswer" class="answer-body">
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item"><a href="#">First mobum answer</a></li>
+                <li class="list-group-item"><a href="#">Second mobum answer</a></li>
+                <li class="list-group-item"><a href="#">Thrid mobum answer</a></li>
+                <li class="list-group-item"><a href="#">Fourth mobum answer</a></li>
+                <li class="list-group-item"><a href="#">Fifth mobum answer</a></li>
+
             </ul>
         </div>
     </div>
+</div>
+
+<div class="row">
+    <div class="card w-100">
+        <h5 class="card-header">
+            <a data-toggle="collapse" data-target="#related-provision" aria-expanded="false"
+               aria-controls="related-provision"
+               href="#related-provision">
+                    </span>관련 조항</a>
+        </h5>
+        <div id="related-provision" class="answer-body">
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item"><a href="#">7조 1항</a> </li>
+
+                <li class="list-group-item"><a href="#">8조 2항</a></li>
+
+                <li class="list-group-item"><a href="#">15조 8항</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+
+
+{#<div class="row">#}
+{#    <div class="card w-100">#}
+{#        <div class="card-header">Menu</div>#}
+{#        <ul class="list-group list-group-flush">#}
+{#            <li class="list-group-item">first mobum answer</li>#}
+{#            <li class="list-group-item">Second mobum answer</li>#}
+{#            <li class="list-group-item">Third mobum answer</li>#}
+{#            <li class="list-group-item">Fourth mobum answer</li>#}
+{#            <li class="list-group-item">Fifth mobum answer</li>#}
+{#        </ul>#}
+{#    </div>#}
+{#</div>#}
+
+<style src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></style>
+<style src="{{ url_for('static', filename='js/jquery-3.4.1.min.js') }}"></style>
 </body>
 </html>
