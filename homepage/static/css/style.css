@@ -139,7 +139,7 @@ section {
 
 .searchbar:hover>.search_icon {
     background: white;
-    color: #000; 
+    color: black;
 }
 
 .search_icon {
