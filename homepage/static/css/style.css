@@ -186,54 +186,50 @@ section {
 /***** qna.html 끝 *****/
 
 /***** mobum.html *****/
-.list-group {
-    list-style: none;
-}
+/*.answer-body > .list-group .list-group-item:first-child {*/
+/*    border-top-right-radius: 0;*/
+/*    border-top-left-radius: 0;*/
+/*}*/
 
-.answer-body > .list-group .list-group-item:first-child {
-    border-top-right-radius: 0;
-    border-top-left-radius: 0;
-}
+/*.answer-body > .list-group .list-group-item {*/
+/*    border-width: 1px 0;*/
+/*}*/
 
-.answer-body > .list-group .list-group-item {
-    border-width: 1px 0;
-}
+/*.answer-body > .list-group {*/
+/*    margin-bottom: 0;*/
+/*}*/
 
-.answer-body > .list-group {
-    margin-bottom: 0;
-}
+/*.answer-body .list-group-item {*/
+/*    border-radius: 0;*/
+/*}*/
 
-.answer-body .list-group-item {
-    border-radius: 0;
-}
+/*.answer-body .list-group .list-group {*/
+/*    margin: 0;*/
+/*    margin-top: 10px;*/
+/*}*/
 
-.answer-body .list-group .list-group {
-    margin: 0;
-    margin-top: 10px;
-}
+/*.answer-body .list-group-item li.list-group-item {*/
+/*    margin: 0 -15px;*/
+/*    border-top: 1px solid #ddd !important;*/
+/*    border-bottom: 0;*/
+/*    padding-left: 30px;*/
+/*}*/
 
-.answer-body .list-group-item li.list-group-item {
-    margin: 0 -15px;
-    border-top: 1px solid #ddd !important;
-    border-bottom: 0;
-    padding-left: 30px;
-}
+/*.answer-body .list-group-item li.list-group-item:last-child {*/
+/*    padding-bottom: 0;*/
+/*}*/
 
-.answer-body .list-group-item li.list-group-item:last-child {
-    padding-bottom: 0;
-}
+/*.answer-body div.list-group div.list-group {*/
+/*    margin: 0;*/
+/*}*/
 
-.answer-body div.list-group div.list-group {
-    margin: 0;
-}
+/*.answer-body div.list-group .list-group a.list-group-item {*/
+/*    border-top: 1px solid #ddd !important;*/
+/*    border-bottom: 0;*/
+/*    padding-left: 30px;*/
+/*}*/
 
-.answer-body div.list-group .list-group a.list-group-item {
-    border-top: 1px solid #ddd !important;
-    border-bottom: 0;
-    padding-left: 30px;
-}
-
-.answer-body .list-group-item li.list-group-item {
-    border-top: 1px solid #DDD !important;
-}
+/*.answer-body .list-group-item li.list-group-item {*/
+/*    border-top: 1px solid #DDD !important;*/
+/*}*/
 /***** mobum.html 끝 *****/
