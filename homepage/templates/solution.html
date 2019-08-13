@@ -1,0 +1,41 @@
+<html>
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
+
+    <style>
+        .tableSection {
+    margin-top: 50px;
+}
+
+    </style>
+    <title>ISAC</title>
+</head>
+
+<body>
+    {% include 'menu.html' %}
+
+    <div class="container tableSection">
+        <div class="row">
+            <div class="col-lg-8" >
+                <h1>해결기준</h1>
+            </div>
+            <div class="col-lg-4">
+                {% include 'mobum.html' %}
+            </div>
+        </div>
+    </div>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Bootstrap JS -->
+    <script src="{{ url_for('static', filename='js/jquery-3.4.1.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
+</body>
+
+</html>
