@@ -14,38 +14,54 @@
         }
 
         .card-header {
-            background-color : #ABEBC6;
+            background-color : #E7E7E7;
         }
+
         .card-header > a:link,
-        .card-header > a:visited,
+        .card-header > a:visited {
+            color : #000;
+            font-size : 16px;
+            padding : 8px 10px 8px 6px;
+        }
         .answer-body > .list-group > .list-group-item > a:link,
         .answer-body > .list-group > .list-group-item > a:visited {
             color : #000;
+            font-size : 13px;
+            padding : 8px 10px 8px 6px;
         }
 
         .card-header > a:hover,
-        .card-header > a:active,
+        .card-header > a:active {
+            color : #F1C40F;
+            font-size : 16px;
+            padding : 8px 10px 8px 6px;
+            text-decoration : none;
+        }
+
         .answer-body > .list-group > .list-group-item > a:hover,
         .answer-body > .list-group > .list-group-item > a:active{
             color : #F1C40F;
             text-decoration : none;
+            font-size : 13px;
+            padding : 8px 10px 8px 6px;
         }
+
+
     </style>
     <title>Title</title>
 </head>
 
 <body>
+<div class="accordion" id="accordionCard">
 <div class="row">
     <div class="card w-100">
-        <h5 class="card-header">
+        <h5 class="card-header" id="mobumHeading">
             {#        <h4 class="card-title">#}
-            <a data-toggle="collapse" data-target="#mobumAnswer" aria-expanded="false" aria-controls="mobumAnswer"
-               href="#mobumAnswer"><span
-                    class="glyphicon glyphicon-folder-close">
-                    </span>모범 답변</a>
+            <a data-toggle="collapse" data-target="#mobumAnswer" aria-expanded="true" aria-controls="mobumAnswer"
+               href="#mobumAnswer">모범 답변</a>
             {#        </h4>#}
         </h5>
-        <div id="mobumAnswer" class="answer-body">
+        <div id="mobumAnswer" class="answer-body collapse show" aria-labelledby="mobumHeading" data-parent="#accordionCard">
             <ul class="list-group list-group-flush">
                 <li class="list-group-item"><a href="#">First mobum answer</a></li>
                 <li class="list-group-item"><a href="#">Second mobum answer</a></li>
@@ -60,13 +76,12 @@
 
 <div class="row">
     <div class="card w-100">
-        <h5 class="card-header">
-            <a data-toggle="collapse" data-target="#related-provision" aria-expanded="false"
-               aria-controls="related-provision"
-               href="#related-provision">
-                    </span>관련 조항</a>
+        <h5 class="card-header"  id="relatedHeading">
+            <a class="collapsed" data-toggle="collapse" data-target="#related-provision" aria-expanded="false"
+               aria-controls="related-provision" href="#related-provision">
+                    관련 조항</a>
         </h5>
-        <div id="related-provision" class="answer-body">
+        <div id="related-provision" class="answer-body collapse" aria-labelledby="relatedHeading" data-parent="#accordionCard">
             <ul class="list-group list-group-flush">
                 <li class="list-group-item"><a href="#">7조 1항</a> </li>
 
@@ -77,7 +92,7 @@
         </div>
     </div>
 </div>
-
+</div>
 
 
 {#<div class="row">#}
