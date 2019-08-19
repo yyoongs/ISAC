@@ -100,14 +100,15 @@ body, html {
 /***** 메뉴 끝 *****/
 
 /***** 공통 *****/
-section {
-    margin-top: 90px;
-    padding: 10rem 0 6rem 0;
-}
 
 /***** 공통 끝 *****/
 
 /***** index 인덱스 *****/
+#indexSection {
+    margin-top: 90px;
+    padding: 10rem 0 6rem 0;
+}
+
 #introduction {
     padding-left: 30px;
     font-size: 30px;
@@ -138,6 +139,7 @@ section {
     /*transition: width 0.4s linear;*/
 }
 
+
 /* .searchbar:hover>.search_input {
     padding: 0 10px;
     width: 450px;
@@ -145,21 +147,8 @@ section {
     transition: width 0.4s linear;
 } */
 
-.searchbar:hover > .search_icon {
-    background: white;
-    color: black;
-}
 
-.search_icon {
-    height: 40px;
-    width: 40px;
-    float: right;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 50%;
-    color: white;
-}
+
 
 /***** index 인덱스 끝 *****/
 

@@ -8,100 +8,179 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-    <script src="https://kit.fontawesome.com/16d5691813.js"></script>
+    {#    <script src="https://kit.fontawesome.com/16d5691813.js"></script>#}
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css"
+          integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
 
+    <style>
+        i.fas.fa-search {
+            color: white;
+        }
+
+        .searchbar:hover > .search_icon {
+            background: white;
+            color: black;
+        }
+
+        .searchbar:hover > .search_icon > i.fas.fa-search {
+            background: white;
+            color: black;
+        }
+
+        .search_icon {
+            height: 40px;
+            width: 40px;
+            float: right;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 50%;
+        color: white;
+        }
+    </style>
     <title>ISAC</title>
 </head>
 
 <body>
-    {% include 'menu.html' %}
+{% include 'menu.html' %}
 
-    <section id="indexSection">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-6 offset-md-3" id="introduction">
-                        킹갓제너럴아이작
-                </div>
+<section id="indexSection">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 offset-md-3" id="introduction">
+                킹갓제너럴아이작
             </div>
-            <div class="row">
-                <div class="col-sm-6 offset-sm-3">
-                    <div class="d-flex justify-content-center">
-                        <div class="searchbar">
-                            <input class="search_input" type="text" name="" placeholder="Search..."> 상담을 시작합니다.
-                          <!--  <button type="button" class="btn btn-dark" data-toggle="modal" data-target="#exampleModal">실시간 질문하기</button>-->
-                            <a data-toggle="modal" data-target="#exampleModal" class="search_icon"><i class="fas fa-search"></i></a>
-                        </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6 offset-sm-3">
+                <div class="d-flex justify-content-center">
+                    <div class="searchbar">
+                        <input class="search_input" type="text" name="" placeholder="상담을 시작합니다.">
+                        <!--  <button type="button" class="btn btn-dark" data-toggle="modal" data-target="#exampleModal">실시간 질문하기</button>-->
+                        <a data-toggle="modal" data-target="#exampleModal" class="search_icon"><i
+                                class="fas fa-search"></i></a>
                     </div>
                 </div>
             </div>
         </div>
-    </section>
+    </div>
+</section>
 
-    <!-- Modal -->
-    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-      <div class="modal-dialog" role="document">
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
         <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">실시간 질문하기</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true"> </span>
-            </button>
-          </div>
-          <div class="modal-body">
-              <form>
-                  <div class="form-row">
-                      <div class="form-group col">
-                          <lable for ="inputTitle" class="col-form-label">제목</lable>
-                          <input type="text" class="form-control" id="inputTitle" name="search", placeholder="제목을 작성해주세요.">
-                      </div>
-                  </div>
-                  <div class="form-row">
-                      <div class="form-group col-md-6">
-                          <label for="exampleFormControlSelect1">대분류</label>
-                          <select class="form-control" id="exampleFormControlSelect1">
-                              <option selected>대분류</option>
-                              <option>1</option>
-                              <option>2</option>
-                              <option>3</option>
-                              <option>4</option>
-                              <option>5</option>
-                          </select>
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">실시간 질문하기</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true"> </span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form action="{{ url_for('result') }}" method="POST">
+                    <div class="form-row">
+                        <div class="form-group col">
+                            <lable for="inputTitle" class="col-form-label">제목</lable>
+                            <input type="text" class="form-control" id="inputTitle" name="inputTitle"
+                                   placeholder="제목을 작성해주세요.">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="BigCategory">대분류</label>
+                            <select class="form-control" id="SelectBigCate" name="SelectBigCate">
+                                <option selected>전체</option>
+{#                                <option value="110000">가구</option>#}
+{#                                <option value="120000">가사용품</option>#}
+{#                                <option value="130000">광열·수도</option>#}
+{#                                <option value="140000">교육서비스</option>#}
+{#                                <option value="220000">금융</option>#}
+{#                                <option value="230000">기계류기타물품</option>#}
+{#                                <option value="250000">기타서비스</option>#}
+{#                                <option value="260000">농·수·축산용품</option>#}
+{#                                <option value="300000">도서·음반</option>#}
+{#                                <option value="310000">문화·오락서비스</option>#}
+{#                                <option value="320000">문화용품</option>#}
+{#                                <option value="330000">법률·행정서비스</option>#}
+{#                                <option value="340000">보건·위생서비스</option>#}
+{#                                <option value="350000">보건·위생용품</option>#}
+{#                                <option value="360000">보험</option>#}
+{#                                <option value="370000">세탁서비스</option>#}
+{#                                <option value="380000">스포츠·레저·취미용품</option>#}
+{#                                <option value="390000">식료품·기호품</option>#}
+{#                                <option value="400000">식생활기기</option>#}
+{#                                <option value="410000">운수·보관·관리서비스</option>#}
+{#                                <option value="420000">의료서비스</option>#}
+{#                                <option value="430000">의류·섬유신변용품</option>#}
+                                <option value="정보통신기기">정보통신기기</option>
+                                <option value="450000">정보통신서비스</option>
+                                <option value="460000">주방용품·설비</option>
+                                <option value="470000">차량·승용물</option>
+                                <option value="480000">토지·건물·설비</option>
+                            </select>
                         </div>
                         <div class="form-group col-md-6">
-                          <label for="exampleFormControlSelect2">소분류</label>
-                          <select class="form-control" id="exampleFormControlSelect2">
-                              <option selected>소분류</option>
-                              <option value="1">One</option>
-                              <option value="2">Two</option>
-                              <option value="3">Three</option>
-                          </select>
-                          <small id="passwordHelpInline" class="form-text text-muted">
-                              대분류, 소분류를 선택해 주세요.
-                          </small>
+                            <label for="MiddleCategory">중분류</label>
+                            <select class="form-control" id="SelectMidCate" name="SelectMidCate">
+                                <option selected>전체</option>
+                                <option value="통신기기액세서리">통신기기·액세서리</option>
+{#                                <option value="2">컴퓨터·주변기기및소프트웨어</option>#}
+{#                                <option value="3">사무용기기</option>#}
+                            </select>
                         </div>
-                  </div>
-                  <div class="form-row">
-                      <div class="form-group col">
-                        <label for = "inputcontent">내용</label>
-                        <textarea class="form-control" rows="8" id="comment" placeholder="내용을 작성해주세요."></textarea>
-                      </div>
-                  </div>
-              </form>
-          </div>
+                        <div class="form-group col-md-6">
+                            <label for="SmallCategory">소분류</label>
+                            <select class="form-control" id="SelectSmallCate" name="SelectSmallCate">
+                                <option selected>전체</option>
+                                <option value="휴대폰">휴대폰</option>
+                                <option value="스마트폰">스마트폰</option>
+                                <option value="핸드폰">핸드폰</option>
+                                <option value="인터넷전화기">인터넷전화기</option>
+                                <option value="통신기기주변장치">통신기기주변장치</option>
+                                <option value="기타통신장치">기타통신장치</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="exampleFormControlSelect2">상황</label>
+                            <select class="form-control" id="SelectSituation" name="SelectSituation">
+                                <option selected>----</option>
+                                <option value="고장">고장</option>
+                                <option value="환">환불</option>
+                                <option value="AS">A/S</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col">
+                            <label for="inputcontent">내용</label>
+                            <textarea class="form-control" rows="8" id="comment" placeholder="내용을 작성해주세요." name="inputContent"></textarea>
+                        </div>
+                    </div>
 
-          <div class="modal-footer">
-            <button type="button" onclick="location.href='/result'" class="btn btn-dark">제출하기</button>
-            <button type="button" class="btn btn-light" data-dismiss="modal">닫기</button>
+                    <button type="submit" class="btn btn-dark">제출하기</button>
+                <button type="button" class="btn btn-light" data-dismiss="modal">닫기</button>
+                </form>
+            </div>
 
-          </div>
+            <div class="modal-footer">
+
+
+            </div>
         </div>
-      </div>
     </div>
+</div>
 
-    <!-- Optional JavaScript -->
-    <!-- jQuery first, then Bootstrap JS -->
-    <script src="{{ url_for('static', filename='js/jquery-3.4.1.min.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Bootstrap JS -->
+<script src="{{ url_for('static', filename='js/jquery-3.4.1.min.js') }}"></script>
+<script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
+
+<script>
+{#    function selectBCate(str) {#}
+{#alert("영업방식: "+ str + " 을 선택하였습니다." );#}
+{#    }#}
+</script>
 </body>
 
 </html>
