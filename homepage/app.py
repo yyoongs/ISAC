@@ -1,6 +1,15 @@
 from flask import Flask, render_template, request
 from dao import counselingdao
 import pymysql
+from keras.models import load_model
+import json
+# 형태소 추출 함수(사용자 input 단에서)
+import requests
+import json
+import urllib3
+from morph import getMorph
+import tensorflow as tf
+import pandas as pd
 
 app = Flask(__name__)
 
@@ -40,15 +49,23 @@ def result():
         big = request.form.get('SelectBigCate')
         mid =request.form.get('SelectMidCate')
         small = request.form.get('SelectSmallCate')
-        situation = request.form.get('SelectSituation')
         question = request.form.get('inputContent')
-        counsel = {'title':title, 'big':big, 'mid':mid, 'small':small, 'situation':situation,'question':question}
+        counsel = {'title':title, 'big':big, 'mid':mid, 'small':small, 'question':question}
         counselingdao.setCounseling(counsel)
-        # print(counsel_id)
         result = counselingdao.getCounseling(title)
-        print(result)
 
-        return render_template('result.html', result=result)
+        # 태깅
+        morphs = getMorph(title + question)
+
+        with open('telecom_models/telecom_key_list_2', encoding='utf8') as f:
+             List = json.load(f)
+
+        model=load_model('telecom_models/telecom_광고서비스_add_paper.h5')
+        model.compile(optimizer='adam', loss='binary_crossentropy', metrics=['accuracy'])
+        t = pd.DataFrame([[1 if _ in morphs else 0 for _ in List]])
+        print(model.predict(t))
+
+        return render_template('result.html', result=result, morphs=morphs)
 
 
 # 고객센터
@@ -71,6 +88,26 @@ def rightnow():
 def solution():
     return render_template('solution.html')
 
+# 테스트 (select)
+@app.route('/test')
+def test():
+    def db_query():
+        db = Database()
+        counsel = db.list_counsel()
+        return counsel
+
+    res = db_query()
+    return render_template('test.html', result=res, content_type='application/json')
+
+@app.route('/test2')
+def test2():
+    def db_query():
+        db = Database()
+        gijun = db.list_gijun()
+        return gijun
+
+    res = db_query()
+    return render_template('test2.html', result=res, content_type='application/json')
 
 
 if __name__ == '__main__':
