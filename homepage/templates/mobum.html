@@ -1,56 +1,3 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
-
-    <style>
-        .card {
-            margin-bottom: 10px;
-        }
-
-        .card-header {
-            background-color: #E7E7E7;
-        }
-
-        .card-header > a:link,
-        .card-header > a:visited {
-            color: #000;
-            font-size: 16px;
-            padding: 8px 10px 8px 6px;
-        }
-
-        .answer-body > .list-group > .list-group-item > a:link,
-        .answer-body > .list-group > .list-group-item > a:visited {
-            color: #000;
-            font-size: 13px;
-            padding: 8px 10px 8px 6px;
-        }
-
-        .card-header > a:hover,
-        .card-header > a:active {
-            color: #F1C40F;
-            font-size: 16px;
-            padding: 8px 10px 8px 6px;
-            text-decoration: none;
-        }
-
-        .answer-body > .list-group > .list-group-item > a:hover,
-        .answer-body > .list-group > .list-group-item > a:active {
-            color: #F1C40F;
-            text-decoration: none;
-            font-size: 13px;
-            padding: 8px 10px 8px 6px;
-        }
-    </style>
-    <title>Title</title>
-</head>
-
-<body>
 <div class="accordion" id="accordionCard">
     <div class="row">
         <div class="card w-100">
@@ -94,22 +41,3 @@
         </div>
     </div>
 </div>
-
-
-{#<div class="row">#}
-{#    <div class="card w-100">#}
-{#        <div class="card-header">Menu</div>#}
-{#        <ul class="list-group list-group-flush">#}
-{#            <li class="list-group-item">first mobum answer</li>#}
-{#            <li class="list-group-item">Second mobum answer</li>#}
-{#            <li class="list-group-item">Third mobum answer</li>#}
-{#            <li class="list-group-item">Fourth mobum answer</li>#}
-{#            <li class="list-group-item">Fifth mobum answer</li>#}
-{#        </ul>#}
-{#    </div>#}
-{#</div>#}
-
-<script src="{{ url_for('static', filename='js/jquery-3.4.1.min.js') }}"></script>
-<script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
-</body>
-</html>
