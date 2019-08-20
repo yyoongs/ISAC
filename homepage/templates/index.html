@@ -35,7 +35,7 @@
             justify-content: center;
             align-items: center;
             border-radius: 50%;
-        color: white;
+            color: white;
         }
     </style>
     <title>ISAC</title>
@@ -89,31 +89,31 @@
                     <div class="form-row">
                         <div class="form-group col-md-6">
                             <label for="BigCategory">대분류</label>
-                            <select class="form-control" id="SelectBigCate" name="SelectBigCate">
+                            <select class="form-control" id="SelectBigCate" name="SelectBigCate" onchange="changeBigCate(this.value)">
                                 <option selected>전체</option>
-{#                                <option value="110000">가구</option>#}
-{#                                <option value="120000">가사용품</option>#}
-{#                                <option value="130000">광열·수도</option>#}
-{#                                <option value="140000">교육서비스</option>#}
-{#                                <option value="220000">금융</option>#}
-{#                                <option value="230000">기계류기타물품</option>#}
-{#                                <option value="250000">기타서비스</option>#}
-{#                                <option value="260000">농·수·축산용품</option>#}
-{#                                <option value="300000">도서·음반</option>#}
-{#                                <option value="310000">문화·오락서비스</option>#}
-{#                                <option value="320000">문화용품</option>#}
-{#                                <option value="330000">법률·행정서비스</option>#}
-{#                                <option value="340000">보건·위생서비스</option>#}
-{#                                <option value="350000">보건·위생용품</option>#}
-{#                                <option value="360000">보험</option>#}
-{#                                <option value="370000">세탁서비스</option>#}
-{#                                <option value="380000">스포츠·레저·취미용품</option>#}
-{#                                <option value="390000">식료품·기호품</option>#}
-{#                                <option value="400000">식생활기기</option>#}
-{#                                <option value="410000">운수·보관·관리서비스</option>#}
-{#                                <option value="420000">의료서비스</option>#}
-{#                                <option value="430000">의류·섬유신변용품</option>#}
-                                <option value="정보통신기기">정보통신기기</option>
+                                <option value="110000">가구</option>
+                                <option value="120000">가사용품</option>
+                                <option value="130000">광열·수도</option>
+                                <option value="140000">교육서비스</option>
+                                <option value="220000">금융</option>
+                                <option value="230000">기계류기타물품</option>
+                                <option value="250000">기타서비스</option>
+                                <option value="260000">농·수·축산용품</option>
+                                <option value="300000">도서·음반</option>
+                                <option value="310000">문화·오락서비스</option>
+                                <option value="320000">문화용품</option>
+                                <option value="330000">법률·행정서비스</option>
+                                <option value="340000">보건·위생서비스</option>
+                                <option value="350000">보건·위생용품</option>
+                                <option value="360000">보험</option>
+                                <option value="370000">세탁서비스</option>
+                                <option value="380000">스포츠·레저·취미용품</option>
+                                <option value="390000">식료품·기호품</option>
+                                <option value="400000">식생활기기</option>
+                                <option value="410000">운수·보관·관리서비스</option>
+                                <option value="420000">의료서비스</option>
+                                <option value="430000">의류·섬유신변용품</option>
+                                <option value="440000">정보통신기기</option>
                                 <option value="450000">정보통신서비스</option>
                                 <option value="460000">주방용품·설비</option>
                                 <option value="470000">차량·승용물</option>
@@ -125,13 +125,13 @@
                             <select class="form-control" id="SelectMidCate" name="SelectMidCate">
                                 <option selected>전체</option>
                                 <option value="통신기기액세서리">통신기기·액세서리</option>
-{#                                <option value="2">컴퓨터·주변기기및소프트웨어</option>#}
-{#                                <option value="3">사무용기기</option>#}
+                                {#                                <option value="2">컴퓨터·주변기기및소프트웨어</option>#}
+                                {#                                <option value="3">사무용기기</option>#}
                             </select>
                         </div>
                         <div class="form-group col-md-6">
                             <label for="SmallCategory">소분류</label>
-                            <select class="form-control" id="SelectSmallCate" name="SelectSmallCate">
+                            <select class="form-control" id="SelectSmallCate" name="SelectSmallCate" onchange="changeMidCate(this.value)">
                                 <option selected>전체</option>
                                 <option value="휴대폰">휴대폰</option>
                                 <option value="스마트폰">스마트폰</option>
@@ -154,12 +154,13 @@
                     <div class="form-row">
                         <div class="form-group col">
                             <label for="inputcontent">내용</label>
-                            <textarea class="form-control" rows="8" id="comment" placeholder="내용을 작성해주세요." name="inputContent"></textarea>
+                            <textarea class="form-control" rows="8" id="comment" placeholder="내용을 작성해주세요."
+                                      name="inputContent"></textarea>
                         </div>
                     </div>
 
                     <button type="submit" class="btn btn-dark">제출하기</button>
-                <button type="button" class="btn btn-light" data-dismiss="modal">닫기</button>
+                    <button type="button" class="btn btn-light" data-dismiss="modal">닫기</button>
                 </form>
             </div>
 
@@ -175,12 +176,7 @@
 <!-- jQuery first, then Bootstrap JS -->
 <script src="{{ url_for('static', filename='js/jquery-3.4.1.min.js') }}"></script>
 <script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
-
-<script>
-{#    function selectBCate(str) {#}
-{#alert("영업방식: "+ str + " 을 선택하였습니다." );#}
-{#    }#}
-</script>
+<script src="{{ url_for('static', filename='js/changeCate.js') }}"></script>
 </body>
 
 </html>
