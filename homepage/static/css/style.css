@@ -1,3 +1,10 @@
+/* CSS class/id 설명
+1. container : 위에 메뉴 높이가 90px이라 그 아래부터 시작해야해서 무조건 있어야함
+2.
+3.
+4.
+
+*/
 @import url('https://fonts.googleapis.com/css?family=Noto+Sans+KR:100,300,400,500,700,900&display=swap&subset=korean');
 
 body, html {
@@ -100,6 +107,10 @@ body, html {
 /***** 메뉴 끝 *****/
 
 /***** 공통 *****/
+.basic_container {
+    margin-top: 90px;
+    padding: 10rem 0 6rem 0;
+}
 
 /***** 공통 끝 *****/
 
@@ -147,7 +158,30 @@ body, html {
     transition: width 0.4s linear;
 } */
 
+i.fas.fa-search {
+    color: white;
+}
 
+.searchbar:hover > .search_icon {
+    background: white;
+    color: black;
+}
+
+.searchbar:hover > .search_icon > i.fas.fa-search {
+    background: white;
+    color: black;
+}
+
+.search_icon {
+    height: 40px;
+    width: 40px;
+    float: right;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    color: white;
+}
 
 
 /***** index 인덱스 끝 *****/
@@ -175,50 +209,6 @@ body, html {
 /***** qna.html 끝 *****/
 
 /***** mobum.html *****/
-/*.answer-body > .list-group .list-group-item:first-child {*/
-/*    border-top-right-radius: 0;*/
-/*    border-top-left-radius: 0;*/
-/*}*/
 
-/*.answer-body > .list-group .list-group-item {*/
-/*    border-width: 1px 0;*/
-/*}*/
 
-/*.answer-body > .list-group {*/
-/*    margin-bottom: 0;*/
-/*}*/
-
-/*.answer-body .list-group-item {*/
-/*    border-radius: 0;*/
-/*}*/
-
-/*.answer-body .list-group .list-group {*/
-/*    margin: 0;*/
-/*    margin-top: 10px;*/
-/*}*/
-
-/*.answer-body .list-group-item li.list-group-item {*/
-/*    margin: 0 -15px;*/
-/*    border-top: 1px solid #ddd !important;*/
-/*    border-bottom: 0;*/
-/*    padding-left: 30px;*/
-/*}*/
-
-/*.answer-body .list-group-item li.list-group-item:last-child {*/
-/*    padding-bottom: 0;*/
-/*}*/
-
-/*.answer-body div.list-group div.list-group {*/
-/*    margin: 0;*/
-/*}*/
-
-/*.answer-body div.list-group .list-group a.list-group-item {*/
-/*    border-top: 1px solid #ddd !important;*/
-/*    border-bottom: 0;*/
-/*    padding-left: 30px;*/
-/*}*/
-
-/*.answer-body .list-group-item li.list-group-item {*/
-/*    border-top: 1px solid #DDD !important;*/
-/*}*/
 /***** mobum.html 끝 *****/
