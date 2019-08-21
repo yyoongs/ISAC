@@ -20,7 +20,6 @@ def common_sql(type, sql, params=None):
 
                 # commit
                 connetion.commit()
-
         else :
             # 1 = fetchall() 2 = fetchone()
             with connetion.cursor(pymysql.cursors.DictCursor) as cursor :
@@ -36,21 +35,18 @@ def common_sql(type, sql, params=None):
         connetion.close()
 
 # 상담 가져오기
-def getCounseling(title):
-    sql = "select title, big_cate, mid_cate, question_date, question from realtime_counsel where title=%s"
-
-    return common_sql(1, sql, (title,))
+def getCounseling(questionDate):
+    sql = "select title, big_cate, mid_cate, question_date, question from realtime_counsel where question_date=%s"
+    print(questionDate)
+    return common_sql(1, sql, (questionDate,))
 
 #넘어온 상담들 등록
 def setCounseling(counsel):
-    ts = time.time()
-    timestamp = datetime.datetime.fromtimestamp(ts).strftime('%Y-%m-%d %H:%M:%S')
-
-    #넘어온 데이터중 빈값이 있으면 0 리턴
-    # 처리하기
+    # 넘어온 데이터중 빈값이 있으면 0 리턴
+    # 대분류, 중분류에서 전체가 넘어오면 * 으로 처리하기
 
     sql = "INSERT INTO realtime_counsel (title, big_cate, mid_cate, small_cate, question_date, question) VALUES (%s, %s, %s, %s, %s, %s)"
-    params = (counsel['title'], counsel['big'], counsel['mid'],counsel['small'],  timestamp, counsel['question'])
+    params = (counsel['title'], counsel['big'], counsel['mid'],counsel['small'],  counsel['question_date'], counsel['question'])
     return common_sql(3, sql, params)
 
 # 해결기준 (업종) 가져오기
@@ -61,3 +57,7 @@ def getGijun():
 def getTrouble1(upjongName):
     sql = "SELECT gijun.type_1 FROM solution_gijun gijun, category cate WHERE gijun.category_id=cate.id AND cate.category_name=%s GROUP BY gijun.type_1"
     return common_sql(1, sql, upjongName)
+
+def getBigCate():
+    sql = "SELECT name FROM big_category"
+    return common_sql(1, sql)

@@ -1,5 +1,4 @@
 <html>
-
 <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
@@ -21,19 +20,19 @@
 <section id="indexSection">
     <div>
         <div class="row">
-            <div class="col-md-6 offset-md-3" id="introduction">
+            <div class="col-sm-6 offset-sm-3" id="introduction">
                 킹갓제너럴아이작
             </div>
         </div>
         <div class="row">
             <div class="col-sm-6 offset-sm-3 ">
-                <div class="wrap">
+{#                <div class="wrap">#}
                     <div class="search">
                         <input type="text" class="searchTerm" placeholder="상담을 시작합니다">
-                        <button type="submit" class="searchButton" data-toggle="modal" data-target="#counselModal" >
+                        <button type="submit" class="searchButton" data-toggle="modal" data-target="#counselModal">
                             <i class="fa fa-search"></i>
                         </button>
-                    </div>
+{#                    </div>#}
                 </div>
             </div>
 
@@ -56,26 +55,26 @@
                 <form action="{{ url_for('result') }}" method="POST">
                     <div class="form-row">
                         <div class="form-group col">
-                            <lable for="inputTitle" class="col-form-label">제목</lable>
+                            <label for="title" class="col-form-label">제목</label>
                             <input type="text" class="form-control" id="inputTitle" name="inputTitle"
-                                   placeholder="제목을 작성해주세요.">
+                                   placeholder="제목을 작성해주세요." required>
                         </div>
                     </div>
                     <div class="form-row">
                         <div class="form-group col-md-6">
                             <label for="BigCategory">대분류</label>
                             <select class="form-control" id="SelectBigCate" name="SelectBigCate"
-                                    onchange="changeBigCate(this.value)">
-                                <option selected>전체</option>
+                                    onchange="changeBigCate(this.value)" required>
+                                <option>전체</option>
                                 {% for row in big_cate %}
-                                <option value="{{ row.name }}">{{ row.name }}</option>
+                                    <option value="{{ row.name }}">{{ row.name }}</option>
                                 {% endfor %}
                             </select>
                         </div>
                         <div class="form-group col-md-6">
                             <label for="MiddleCategory">중분류</label>
-                            <select class="form-control" id="SelectMidCate" name="SelectMidCate">
-                                <option selected>전체</option>
+                            <select class="form-control" id="SelectMidCate" name="SelectMidCate" required>
+                                <option>전체</option>
                             </select>
                         </div>
                         <div class="form-group col-md-6">
@@ -99,7 +98,7 @@
                         <div class="form-group col">
                             <label for="inputcontent">내용</label>
                             <textarea class="form-control" rows="8" id="comment" placeholder="내용을 작성해주세요."
-                                      name="inputContent"></textarea>
+                                      name="inputContent" required></textarea>
                         </div>
                     </div>
 
@@ -118,7 +117,6 @@
 <!-- jQuery first, then Bootstrap JS -->
 <script src="{{ url_for('static', filename='js/jquery-3.4.1.min.js') }}"></script>
 <script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
-<script src="{{ url_for('static', filename='js/changeCate.js') }}"></script>
+<script src="{{ url_for('static', filename='js/changeSelectBox.js') }}"></script>
 </body>
-
 </html>

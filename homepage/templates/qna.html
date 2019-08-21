@@ -1,7 +1,6 @@
-
-    <div id="qna_section">
-        <div id="q_section">
-            {% for result in result %}
+<div id="qna_section">
+    <div id="q_section">
+        {% for result in result %}
             <div class="title"><b class="realTime">Q</b>{{ result.title }}</div>
             <div class="row">
                 <div class="col-sm-6">대분류 : {{ result.big_cate }}</div>
@@ -11,18 +10,18 @@
             <div class="contents">
                 {{ result.question }}
             </div>
+        {% endfor %}
+    </div>
+    <hr>
+    <div id="a_section">
+
+        <div class="title"><b class="realTime">A</b>답변</div>
+
+        <div class="contents">
+            {% for morph in morphs %}
+                {{ morph }}
+
             {% endfor %}
-        </div>
-        <hr>
-        <div id="a_section">
-
-            <div class="title"><b class="realTime">A</b>답변</div>
-
-            <div class="contents">
-                {%  for morph in morphs %}
-            {{ morph }}
-
-            {% endfor %}
-            </div>
         </div>
     </div>
+</div>

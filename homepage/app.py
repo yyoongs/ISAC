@@ -1,4 +1,5 @@
 from flask import Flask, render_template, request, jsonify
+from datetime import datetime
 from myModule import counselingdao
 from myModule.morpy import getMorph
 from myModule.usado import searchAlgorithm
@@ -13,7 +14,8 @@ app = Flask(__name__)
 # 메인 페이지
 @app.route('/')
 def index():
-    return render_template('index.html')
+    bigCate = counselingdao.getBigCate()
+    return render_template('index.html', big_cate=bigCate)
 
 
 # 실시간 상담 처리
@@ -25,10 +27,11 @@ def result():
         big = request.form.get('SelectBigCate')
         mid =request.form.get('SelectMidCate')
         small = request.form.get('SelectSmallCate')
+        question_date = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
         question = request.form.get('inputContent')
-        counsel = {'title':title, 'big':big, 'mid':mid, 'small':small, 'question':question}
+        counsel = {'title':title, 'big':big, 'mid':mid, 'small':small, 'question_date':question_date, 'question':question}
         counselingdao.setCounseling(counsel)
-        result = counselingdao.getCounseling(title)
+        result = counselingdao.getCounseling(question_date)
 
         # 태깅
         morphs = getMorph(title + question)
@@ -41,14 +44,6 @@ def result():
         model.compile(optimizer='adam', loss='binary_crossentropy', metrics=['accuracy'])
         t = pd.DataFrame([[1 if _ in morphs else 0 for _ in List]])
         print(model.predict(t))
-
-        with open('searchModel/searchModel.lq', 'rb') as file:
-            search = pickle.load(file)
-
-        # f = open('searchModel/searchModel.lq', 'rb')
-        # search = pickle.load(f)
-        # search = __name__()
-        print(search)
 
         return render_template('result.html', result=result, morphs=morphs)
 

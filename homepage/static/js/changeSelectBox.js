@@ -1,3 +1,4 @@
+// 인덱스 select box
 function changeBigCate(e) {
     // var b11 = {
     //     ["가구리폼·수리업"]: 110100, ["세트가구류"]: 110200, ["의자류"]: 110300, ["장롱류"]: 110400,  ["책상·테이블류"]: 110500,
@@ -126,3 +127,17 @@ function changeMidCate(e) {
         smalltarget.appendChild(opt);
     }
 }
+
+
+// 해결기준 select box
+$(document).ready(function () {
+    $('#Upjong').change(function () {
+
+        $.getJSON('/_update_gijun', {
+            selected_class: $('#Upjong').val()
+
+        }).success(function (data) {
+            $('#Trouble1').html(data.html_string_selected);
+        })
+    });
+});
