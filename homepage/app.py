@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, jsonify
 from myModule import counselingdao
 from myModule.morpy import getMorph
 from myModule.usado import searchAlgorithm
@@ -61,15 +61,28 @@ def relation():
 # 해결기준
 @app.route('/solution')
 def solution():
-    return render_template('solution.html')
-
-# 테스트 (select)
-
-@app.route('/test2')
-def test2():
     upjong = counselingdao.getGijun()
-    print(upjong)
-    return render_template('test2.html', result=upjong, content_type='application/json')
+    return render_template('solution.html', result=upjong)
+
+
+@app.route('/_update_gijun')
+def update_gijun():
+    # 무슨 업종 선택했는지 가져오기
+    selected_class = request.args.get('selected_class', type=str)
+
+    # 업종에 해당하는 분쟁유형들 가져오기
+    updated_values = counselingdao.getTrouble1(selected_class)
+
+    # 분쟁유형 div에 분쟁유형들 넣기 / 전체는 기본
+    html_string_selected = '<option value="">전체</option>'
+
+
+    for entry in updated_values:
+        print(entry['type_1'])
+        html_string_selected += '<option value="{}">{}</option>'.format(entry['type_1'], entry['type_1'])
+
+    print(html_string_selected)
+    return jsonify(html_string_selected=html_string_selected)
 
 
 if __name__ == '__main__':
