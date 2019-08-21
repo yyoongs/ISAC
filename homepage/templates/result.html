@@ -18,28 +18,8 @@
     <h2>실시간 상담</h2>
     <div class="row">
         <div class="col-lg-8">
-            {% if result %}
-                {% for result in result %}
-                <div id="qna_section">
-                    <div id="q_section">
-                        <div class="title"><b class="realTime">Q</b>{{ result.title }}</div>
-                        <div class="row">
-                            <div class="col-sm-4">대분류 : {{ result.big_cate }}</div>
-                            <div class="col-sm-4">중분류 : {{ result.mid_cate }}</div>
-                            <div class="col-sm-4">상황 : {{ result.situation }}</div>
-                        </div>
-                        <div class="contents">
-                            {{ result.question }}
-                        </div>
-                    </div>
-                    <hr>
-                    <div id="a_section">
-                        <div class="title"><b class="realTime">A</b>답변</div>
-                        <div class="contents">
-                        </div>
-                    </div>
-                </div>
-                {% endfor %}
+            {% if result, morphs %}
+                {% include 'qna.html' %}
             {% endif %}
         </div>
         <div class="col-lg-4">

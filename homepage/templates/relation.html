@@ -12,32 +12,26 @@
 </head>
 
 <body>
-    {% include 'menu.html' %}
+{% include 'menu.html' %}
 
-        <div class="container basic_container">
-        <div>
-            <h1>관련 상담 조회</h1>
-        </div>
-                <div class="row">
-                <div class="col-sm-2 offset-sm-8 sticky-top">
-                    <ul class="list-group">
-                        <li class="list-group-item list-group-item-dark">Menu</li>
-                        <a href="#" class="list-group-item">first mobum answer</a>
-                        <a href="#" class="list-group-item">Second mobum answer</a>
-                        <a href="#" class="list-group-item">Third mobum answer</a>
-                        <a href="#" class="list-group-item">Fourth mobum answer</a>
-                        <a href="#" class="list-group-item">Fifth mobum answer</a>
-                    </ul>
-                </div>
-                </div>
-        </div>
+<div class="container basic_container">
+        <h2>관련 상담 조회</h2>
+    <div class="row">
+        <div class="col-lg-8">
 
         </div>
+        <div class="col-lg-4">
+            {% include 'mobum.html' %}
+        </div>
+    </div>
+</div>
 
-    <!-- Optional JavaScript -->
-    <!-- jQuery first, then Bootstrap JS -->
-    <script src="{{ url_for('static', filename='js/jquery-3.4.1.min.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
+</div>
+
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Bootstrap JS -->
+<script src="{{ url_for('static', filename='js/jquery-3.4.1.min.js') }}"></script>
+<script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
 </body>
 
 </html>

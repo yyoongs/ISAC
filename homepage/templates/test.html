@@ -1,0 +1,71 @@
+<html>
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <title>ISAC 실시간 상담 조회</title>
+
+    <style>
+        table {
+            font-family: arial, sans-serif;
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        td, th {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+        }
+
+        tr:nth-child(even) {
+            background-color: #dddddd;
+        }
+    </style>
+</head>
+
+<body>
+{% include 'menu.html' %}
+
+<div class="container tableSection" style="position:relative;margin-top:2rem">
+    {% if result %}
+
+
+
+
+    <table id="employees" style="width:100%">
+        <tbody>
+
+        <tr>
+            <th>상담번호</th>
+            <th>대분류</th>
+            <th>중분류</th>
+            <th>제목</th>
+        </tr>
+        {% for row in result %}
+        <tr>
+            <td> {{ row.counsel_id }}</td>
+            <td> {{ row.big_cate }}</td>
+            <td> {{ row.mid_cate }}</td>
+            <td> {{ row.title }}</td>
+
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    {% endif %}
+</div>
+
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Bootstrap JS -->
+<script src="{{ url_for('static', filename='js/jquery-3.4.1.min.js') }}"></script>
+<script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
+</body>
+
+</html>

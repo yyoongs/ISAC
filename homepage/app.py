@@ -1,15 +1,11 @@
 from flask import Flask, render_template, request
-from dao import counselingdao
+from module import counselingdao
+from module.morph import getMorph
 import pymysql
 from keras.models import load_model
 import json
-# 형태소 추출 함수(사용자 input 단에서)
-import requests
-import json
-import urllib3
-from morph import getMorph
-import tensorflow as tf
 import pandas as pd
+import pickle
 
 app = Flask(__name__)
 
@@ -65,23 +61,17 @@ def result():
         t = pd.DataFrame([[1 if _ in morphs else 0 for _ in List]])
         print(model.predict(t))
 
+        with open('searchModel/searchModel.lq', 'rb') as file:
+            search = pickle.load(file)
+        print(search)
+
         return render_template('result.html', result=result, morphs=morphs)
 
-
-# 고객센터
-@app.route('/custom')
-def custom():
-    return render_template('custom.html')
 
 # 관련상담조회
 @app.route('/relation')
 def relation():
     return render_template('relation.html')
-
-# 실시간 상담 조회
-@app.route('/rightnow')
-def rightnow():
-    return render_template('rightnow.html')
 
 # 해결기준
 @app.route('/solution')

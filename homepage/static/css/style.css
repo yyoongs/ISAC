@@ -24,7 +24,7 @@ body, html {
     webkit-box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.15);
     -moz-box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.15);
     box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.15);
-    background: #000;
+    background: #173F5F;
 }
 
 #mainNav a {
@@ -47,7 +47,7 @@ body, html {
 
 #mainNav .navbar-nav li.nav-item a.nav-link:hover {
     color: #5C6BC0;
-    background: #000;
+    background: #173F5F;
 }
 
 #mainNav .navbar-nav li.nav-item a.nav-link:active, #mainNav .navbar-nav li.nav-item a.nav-link:focus {
@@ -108,8 +108,7 @@ body, html {
 
 /***** 공통 *****/
 .basic_container {
-    margin-top: 90px;
-    padding: 10rem 0 6rem 0;
+    margin-top: 30px;
 }
 
 /***** 공통 끝 *****/
@@ -126,62 +125,70 @@ body, html {
     font-weight: 500;
 }
 
-.searchbar {
-    margin-bottom: auto;
-    margin-top: auto;
-    height: 60px;
-    background-color: #283747;
-    border-radius: 30px;
-    padding: 10px;
-    width: 100%;
-}
+/*.searchbar {*/
+/*    margin-bottom: auto;*/
+/*    margin-top: auto;*/
+/*    height: 60px;*/
+/*    background-color: #283747;*/
+/*    border-radius: 30px;*/
+/*    padding: 10px;*/
+/*    width: 100%;*/
+/*}*/
 
-.search_input {
-    color: white;
-    border: 0;
-    outline: 0;
-    background: none;
-    width: 0;
-    caret-color: transparent;
-    line-height: 40px;
-    padding: 0 10px;
-    /* width: 450px; */
-    /* caret-color: red; */
-    /*transition: width 0.4s linear;*/
-}
+/*.search_input {*/
+/*    color: white;*/
+/*    border: 0;*/
+/*    outline: 0;*/
+/*    background: none;*/
+/*    width: 0;*/
+/*    caret-color: transparent;*/
+/*    line-height: 40px;*/
+/*    padding: 0 10px;*/
+/*}*/
 
 
-/* .searchbar:hover>.search_input {
-    padding: 0 10px;
-    width: 450px;
-    caret-color: red;
-    transition: width 0.4s linear;
-} */
+/* .searchbar:hover>.search_input {*/
+/*    padding: 0 10px;*/
+/*    !*width: 450px;*!*/
+/*    caret-color: red;*/
+/*    !*transition: width 0.4s linear;*!*/
+/*}*/
 
-i.fas.fa-search {
-    color: white;
-}
+/*i.fas.fa-search {*/
+/*    color: white;*/
+/*}*/
 
-.searchbar:hover > .search_icon {
-    background: white;
-    color: black;
-}
+/*.searchbar:hover > .search_icon {*/
+/*    background: white;*/
+/*    color: black;*/
+/*}*/
 
-.searchbar:hover > .search_icon > i.fas.fa-search {
-    background: white;
-    color: black;
-}
+/*.searchbar:hover > .search_icon > i.fas.fa-search {*/
+/*    background: white;*/
+/*    color: black;*/
+/*}*/
 
-.search_icon {
-    height: 40px;
-    width: 40px;
-    float: right;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 50%;
-    color: white;
-}
+/*.search_icon {*/
+/*    height: 40px;*/
+/*    width: 40px;*/
+/*    float: right;*/
+/*    display: flex;*/
+/*    justify-content: center;*/
+/*    align-items: center;*/
+/*    border-radius: 50%;*/
+/*    color: white;*/
+/*}*/
+
+/*.form-control-borderless {*/
+/*    border: none;*/
+/*}*/
+
+/*.form-control-borderless:hover, .form-control-borderless:active, .form-control-borderless:focus {*/
+/*    border: none;*/
+/*    outline: none;*/
+/*    box-shadow: none;*/
+/*}*/
+
 
 
 /***** index 인덱스 끝 *****/
@@ -209,6 +216,48 @@ i.fas.fa-search {
 /***** qna.html 끝 *****/
 
 /***** mobum.html *****/
+ .card {
+            margin-bottom: 10px;
+        }
 
+        .card-header {
+            background-color: #E7E7E7;
+        }
+
+        .card-header > a:link,
+        .card-header > a:visited {
+            color: #000;
+            font-size: 16px;
+            padding: 8px 10px 8px 6px;
+        }
+
+        .answer-body > .list-group > .list-group-item > a:link,
+        .answer-body > .list-group > .list-group-item > a:visited {
+            color: #000;
+            font-size: 13px;
+            padding: 8px 10px 8px 6px;
+        }
+
+        .card-header > a:hover,
+        .card-header > a:active {
+            color: #F1C40F;
+            font-size: 16px;
+            padding: 8px 10px 8px 6px;
+            text-decoration: none;
+        }
+
+        .answer-body > .list-group > .list-group-item > a:hover,
+        .answer-body > .list-group > .list-group-item > a:active {
+            color: #F1C40F;
+            text-decoration: none;
+            font-size: 13px;
+            padding: 8px 10px 8px 6px;
+        }
 
 /***** mobum.html 끝 *****/
+
+/***** qna.html *****/
+.realTime{
+    margin-right : 8px;
+}
+/***** result.html 끝 *****/

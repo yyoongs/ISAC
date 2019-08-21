@@ -12,6 +12,49 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css"
           integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
 
+    <style>
+        .search {
+  width: 100%;
+  position: relative;
+  display: flex;
+}
+
+.searchTerm {
+  width: 100%;
+  border: 3px solid #173F5F;
+  border-right: none;
+  padding: 5px;
+  height: 100%;
+  border-radius: 5px 0 0 5px;
+  outline: none;
+  color: #9DBFAF;
+}
+
+.searchTerm:focus{
+  color: #173F5F;
+}
+
+.searchButton {
+  width: 40px;
+  height: 40px;
+  border: 1px solid #173F5F;
+  background: #173F5F;
+  text-align: center;
+  color: #fff;
+  border-radius: 0 5px 5px 0;
+  cursor: pointer;
+  font-size: 20px;
+}
+
+/*Resize the wrap to see the search bar change!*/
+.wrap{
+  width: 100%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+    </style>
     <title>ISAC</title>
 </head>
 
@@ -25,17 +68,42 @@
                 킹갓제너럴아이작
             </div>
         </div>
+{#        <div class="row">#}
+{#            <div class="col-sm-6 offset-sm-3">#}
+{#                <div class="d-flex justify-content-center">#}
+{#                    <div class="searchbar">#}
+{#                        <input type="text" class="search_input" name="" placeholder="상담을 시작합니다.">#}
+{#                        <!--  <button type="button" class="btn btn-dark" data-toggle="modal" data-target="#exampleModal">실시간 질문하기</button>-->#}
+{#                        <a data-toggle="modal" data-target="#counselModal" class="search_icon"><i#}
+{#                                class="fas fa-search"></i></a>#}
+{#                    </div>#}
+{#                </div>#}
+{#            </div>#}
+{#        </div>#}
+{#        <br>#}
+{#        <div class="row">#}
+{#            <div class="col-sm-6 offset-sm-3">#}
+{#                <input class="form-control form-control-lg form-control-borderless" type="search"#}
+{#                       placeholder="Search topics or keywords">#}
+{#            </div>#}
+{#            <!--end of col-->#}
+{#            <div class="col-auto">#}
+{#                <button class="btn btn-lg btn-dark" type="submit">상담시작</button>#}
+{#            </div>#}
+{#        </div>#}
+{#        <br>#}
         <div class="row">
-            <div class="col-sm-6 offset-sm-3">
-                <div class="d-flex justify-content-center">
-                    <div class="searchbar">
-                        <input class="search_input" type="text" name="" placeholder="상담을 시작합니다.">상담을 시작합니다
-                        <!--  <button type="button" class="btn btn-dark" data-toggle="modal" data-target="#exampleModal">실시간 질문하기</button>-->
-                        <a data-toggle="modal" data-target="#counselModal" class="search_icon"><i
-                                class="fas fa-search"></i></a>
+            <div class="col-sm-6 offset-sm-3 ">
+                <div class="wrap">
+                    <div class="search">
+                        <input type="text" class="searchTerm" placeholder="상담을 시작합니다">
+                        <button type="submit" class="searchButton" data-toggle="modal" data-target="#counselModal" >
+                            <i class="fa fa-search"></i>
+                        </button>
                     </div>
                 </div>
             </div>
+
         </div>
     </div>
 </section>
@@ -63,7 +131,8 @@
                     <div class="form-row">
                         <div class="form-group col-md-6">
                             <label for="BigCategory">대분류</label>
-                            <select class="form-control" id="SelectBigCate" name="SelectBigCate" onchange="changeBigCate(this.value)">
+                            <select class="form-control" id="SelectBigCate" name="SelectBigCate"
+                                    onchange="changeBigCate(this.value)">
                                 <option selected>전체</option>
                                 <option value="가구">가구</option>
                                 <option value="가사용품">가사용품</option>
@@ -102,19 +171,20 @@
                         </div>
                         <div class="form-group col-md-6">
                             <label for="SmallCategory">소분류</label>
-                            <select class="form-control" id="SelectSmallCate" name="SelectSmallCate" onchange="changeMidCate(this.value)">
+                            <select class="form-control" id="SelectSmallCate" name="SelectSmallCate"
+                                    onchange="changeMidCate(this.value)">
                                 <option selected>전체</option>
                             </select>
                         </div>
-{#                        <div class="form-group col-md-6">#}
-{#                            <label for="exampleFormControlSelect2">상황</label>#}
-{#                            <select class="form-control" id="SelectSituation" name="SelectSituation">#}
-{#                                <option selected>----</option>#}
-{#                                <option value="고장">고장</option>#}
-{#                                <option value="환">환불</option>#}
-{#                                <option value="AS">A/S</option>#}
-{#                            </select>#}
-{#                        </div>#}
+                        {#                        <div class="form-group col-md-6">#}
+                        {#                            <label for="exampleFormControlSelect2">상황</label>#}
+                        {#                            <select class="form-control" id="SelectSituation" name="SelectSituation">#}
+                        {#                                <option selected>----</option>#}
+                        {#                                <option value="고장">고장</option>#}
+                        {#                                <option value="환">환불</option>#}
+                        {#                                <option value="AS">A/S</option>#}
+                        {#                            </select>#}
+                        {#                        </div>#}
                     </div>
                     <div class="form-row">
                         <div class="form-group col">
