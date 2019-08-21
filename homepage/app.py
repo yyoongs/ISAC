@@ -52,8 +52,9 @@ def result():
 
         # 태깅
         morphs = getMorph(title + question)
+        print(morphs)
 
-        with open('telecom_models/telecom_key_list_2', encoding='utf8') as f:
+        with open('telecom_models/telecom_key_list.json', encoding='utf8') as f:
              List = json.load(f)
 
         model=load_model('telecom_models/telecom_광고서비스_add_paper.h5')
@@ -61,9 +62,9 @@ def result():
         t = pd.DataFrame([[1 if _ in morphs else 0 for _ in List]])
         print(model.predict(t))
 
-        with open('searchModel/searchModel.lq', 'rb') as file:
-            search = pickle.load(file)
-        print(search)
+        # with open('searchModel/searchModel.lq', 'rb') as file:
+        #     search = pickle.load(file)
+        # print(search)
 
         return render_template('result.html', result=result, morphs=morphs)
 
