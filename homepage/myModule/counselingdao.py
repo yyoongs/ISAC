@@ -8,7 +8,7 @@ def getConnection():
     return pymysql.connect(host = '133.130.122.150', user = "pingu", password = "datacampus12", db = "ISAC")
 
 #sql 중복 부분 리팩토링
-def sql_template(type, sql, params=None):
+def common_sql(type, sql, params=None):
     # Connection 연결
     connetion = getConnection()
     try:
@@ -39,7 +39,7 @@ def sql_template(type, sql, params=None):
 def getCounseling(title):
     sql = "select title, big_cate, mid_cate, question_date, question from realtime_counsel where title=%s"
 
-    return sql_template(1, sql, (title,))
+    return common_sql(1, sql, (title,))
 
 #넘어온 상담들 등록
 def setCounseling(counsel):
@@ -51,9 +51,13 @@ def setCounseling(counsel):
 
     sql = "INSERT INTO realtime_counsel (title, big_cate, mid_cate, small_cate, question_date, question) VALUES (%s, %s, %s, %s, %s, %s)"
     params = (counsel['title'], counsel['big'], counsel['mid'],counsel['small'],  timestamp, counsel['question'])
-    return sql_template(3, sql, params)
+    return common_sql(3, sql, params)
 
-# 해결기준 가져오기
+# 해결기준 (업종) 가져오기
 def getGijun():
     sql = "SELECT category_name FROM category cate, solution_gijun gijun where cate.id=gijun.id"
-    return sql_template(1, sql)
+    return common_sql(1, sql)
+
+def getTrouble1(upjongName):
+    sql = "SELECT gijun.type_1 FROM solution_gijun gijun, category cate WHERE gijun.category_id=cate.id AND cate.category_name=%s GROUP BY gijun.type_1"
+    return common_sql(1, sql, upjongName)
