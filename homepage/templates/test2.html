@@ -38,9 +38,9 @@
             <label for="Upjong">업종</label>
             <select class="form-control" id="Upjong" name="Upjong" >
                 <option selected>전체</option>
-{#                {% for row in result %}#}
-{#                    <option value="{{ row.category_name }}">{{ row.category_name }}</option>#}
-{#                {% endfor %}#}
+                {% for row in result %}
+                    <option value="{{ row.category_name }}">{{ row.category_name }}</option>
+                {% endfor %}
             </select>
         {% endif %}
     </div>
