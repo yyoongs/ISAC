@@ -2,7 +2,6 @@ import requests
 import json
 import urllib3
 
-
 def getMorph(text):
     print('h1')
     openApiURL = "http://aiopen.etri.re.kr:8000/WiseNLU"

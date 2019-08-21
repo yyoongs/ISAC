@@ -11,7 +11,6 @@ def getConnection():
 def sql_template(type, sql, params=None):
     # Connection 연결
     connetion = getConnection()
-
     try:
         #insert, update, delete 사용
         if type == 3 :
@@ -36,6 +35,7 @@ def sql_template(type, sql, params=None):
         # Connection 닫기
         connetion.close()
 
+# 상담 가져오기
 def getCounseling(title):
     sql = "select title, big_cate, mid_cate, question_date, question from realtime_counsel where title=%s"
 
@@ -52,3 +52,8 @@ def setCounseling(counsel):
     sql = "INSERT INTO realtime_counsel (title, big_cate, mid_cate, small_cate, question_date, question) VALUES (%s, %s, %s, %s, %s, %s)"
     params = (counsel['title'], counsel['big'], counsel['mid'],counsel['small'],  timestamp, counsel['question'])
     return sql_template(3, sql, params)
+
+# 해결기준 가져오기
+def getGijun():
+    sql = "SELECT category_name FROM category cate, solution_gijun gijun where cate.id=gijun.id"
+    return sql_template(1, sql)
