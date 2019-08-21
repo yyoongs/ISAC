@@ -12,49 +12,6 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css"
           integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
 
-    <style>
-        .search {
-  width: 100%;
-  position: relative;
-  display: flex;
-}
-
-.searchTerm {
-  width: 100%;
-  border: 3px solid #173F5F;
-  border-right: none;
-  padding: 5px;
-  height: 100%;
-  border-radius: 5px 0 0 5px;
-  outline: none;
-  color: #9DBFAF;
-}
-
-.searchTerm:focus{
-  color: #173F5F;
-}
-
-.searchButton {
-  width: 40px;
-  height: 40px;
-  border: 1px solid #173F5F;
-  background: #173F5F;
-  text-align: center;
-  color: #fff;
-  border-radius: 0 5px 5px 0;
-  cursor: pointer;
-  font-size: 20px;
-}
-
-/*Resize the wrap to see the search bar change!*/
-.wrap{
-  width: 100%;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-}
-    </style>
     <title>ISAC</title>
 </head>
 
@@ -68,30 +25,6 @@
                 킹갓제너럴아이작
             </div>
         </div>
-{#        <div class="row">#}
-{#            <div class="col-sm-6 offset-sm-3">#}
-{#                <div class="d-flex justify-content-center">#}
-{#                    <div class="searchbar">#}
-{#                        <input type="text" class="search_input" name="" placeholder="상담을 시작합니다.">#}
-{#                        <!--  <button type="button" class="btn btn-dark" data-toggle="modal" data-target="#exampleModal">실시간 질문하기</button>-->#}
-{#                        <a data-toggle="modal" data-target="#counselModal" class="search_icon"><i#}
-{#                                class="fas fa-search"></i></a>#}
-{#                    </div>#}
-{#                </div>#}
-{#            </div>#}
-{#        </div>#}
-{#        <br>#}
-{#        <div class="row">#}
-{#            <div class="col-sm-6 offset-sm-3">#}
-{#                <input class="form-control form-control-lg form-control-borderless" type="search"#}
-{#                       placeholder="Search topics or keywords">#}
-{#            </div>#}
-{#            <!--end of col-->#}
-{#            <div class="col-auto">#}
-{#                <button class="btn btn-lg btn-dark" type="submit">상담시작</button>#}
-{#            </div>#}
-{#        </div>#}
-{#        <br>#}
         <div class="row">
             <div class="col-sm-6 offset-sm-3 ">
                 <div class="wrap">
@@ -134,33 +67,9 @@
                             <select class="form-control" id="SelectBigCate" name="SelectBigCate"
                                     onchange="changeBigCate(this.value)">
                                 <option selected>전체</option>
-                                <option value="가구">가구</option>
-                                <option value="가사용품">가사용품</option>
-                                <option value="광열·수도">광열·수도</option>
-                                <option value="교육서비스">교육서비스</option>
-                                <option value="금융">금융</option>
-                                <option value="기계류기타물품">기계류기타물품</option>
-                                <option value="기타서비스">기타서비스</option>
-                                <option value="농·수·축산용품">농·수·축산용품</option>
-                                <option value="도서·음반">도서·음반</option>
-                                <option value="문화·오락서비스">문화·오락서비스</option>
-                                <option value="문화용품">문화용품</option>
-                                <option value="법률·행정서비스">법률·행정서비스</option>
-                                <option value="보건·위생서비스">보건·위생서비스</option>
-                                <option value="보건·위생용품">보건·위생용품</option>
-                                <option value="보험">보험</option>
-                                <option value="세탁서비스">세탁서비스</option>
-                                <option value="스포츠·레저·취미용품">스포츠·레저·취미용품</option>
-                                <option value="식료품·기호품">식료품·기호품</option>
-                                <option value="식생활기기">식생활기기</option>
-                                <option value="운수·보관·관리서비스">운수·보관·관리서비스</option>
-                                <option value="의료서비스">의료서비스</option>
-                                <option value="의류·섬유신변용품">의류·섬유신변용품</option>
-                                <option value="정보통신기기">정보통신기기</option>
-                                <option value="정보통신서비스">정보통신서비스</option>
-                                <option value="주방용품·설비">주방용품·설비</option>
-                                <option value="차량·승용물">차량·승용물</option>
-                                <option value="토지·건물·설비">토지·건물·설비</option>
+                                {% for row in big_cate %}
+                                <option value="{{ row.name }}">{{ row.name }}</option>
+                                {% endfor %}
                             </select>
                         </div>
                         <div class="form-group col-md-6">
