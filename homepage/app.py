@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request
-from module import counselingdao
-from module.morph import getMorph
+from myModule import counselingdao
+from myModule.morpy import getMorph
+from myModule.usado import searchAlgorithm
 import pymysql
 from keras.models import load_model
 import json
@@ -8,27 +9,6 @@ import pandas as pd
 import pickle
 
 app = Flask(__name__)
-
-class Database:
-    def __init__(self):
-        host = '133.130.122.150'
-        user = "pingu"
-        password = "datacampus12"
-        db = "projectdb"
-
-        self.con = pymysql.connect(host=host, user=user, password=password, db=db, cursorclass=pymysql.cursors.
-                                   DictCursor)
-        self.cur = self.con.cursor()
-
-    def list_counsel(self):
-        self.cur.execute("SELECT counsel_id, big_cate, mid_cate, title FROM counsel LIMIT 50")
-        result = self.cur.fetchall()
-        return result
-
-    def list_gijun(self):
-        self.cur.execute("SELECT category_name FROM category cate, solution_gijun gijun where cate.id=gijun.id")
-        result = self.cur.fetchall()
-        return result
 
 # 메인 페이지
 @app.route('/')
@@ -62,9 +42,13 @@ def result():
         t = pd.DataFrame([[1 if _ in morphs else 0 for _ in List]])
         print(model.predict(t))
 
-        # with open('searchModel/searchModel.lq', 'rb') as file:
-        #     search = pickle.load(file)
-        # print(search)
+        with open('searchModel/searchModel.lq', 'rb') as file:
+            search = pickle.load(file)
+
+        # f = open('searchModel/searchModel.lq', 'rb')
+        # search = pickle.load(f)
+        # search = __name__()
+        print(search)
 
         return render_template('result.html', result=result, morphs=morphs)
 
@@ -80,25 +64,12 @@ def solution():
     return render_template('solution.html')
 
 # 테스트 (select)
-@app.route('/test')
-def test():
-    def db_query():
-        db = Database()
-        counsel = db.list_counsel()
-        return counsel
-
-    res = db_query()
-    return render_template('test.html', result=res, content_type='application/json')
 
 @app.route('/test2')
 def test2():
-    def db_query():
-        db = Database()
-        gijun = db.list_gijun()
-        return gijun
-
-    res = db_query()
-    return render_template('test2.html', result=res, content_type='application/json')
+    upjong = counselingdao.getGijun()
+    print(upjong)
+    return render_template('test2.html', result=upjong, content_type='application/json')
 
 
 if __name__ == '__main__':
