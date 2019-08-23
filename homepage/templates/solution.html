@@ -19,7 +19,7 @@
     <div class="row">
         <div class="col-lg-12">
             <h2>해결기준</h2>
-            <form action="{{ url_for('solution') }}" method="POST">
+            <form>
                 <div class="form-row">
                     <div class="form-group col-sm-3">
                         <label for="Upjong">업종</label>
@@ -34,17 +34,18 @@
                         <label for="Trouble1">분쟁유형1</label>
                         <select class="form-control" id="Trouble1" name="Trouble1">
                             <option selected>전체</option>
-                            {% for row in Trouble1 %}
-                                <option value="{{ row }}">{{ row }}</option>
-                            {% endfor %}
                         </select>
+                    </div>
+                    <div style="margin-top:32px;">
+                        <button type="submit" class="btn btn-outline-dark" id="show_gijun_table">검색</button>
                     </div>
                 </div>
             </form>
         </div>
-        {#        <div class="col-lg-4">#}
-        {#            {% include 'mobum.html' %}#}
-        {#        </div>#}
+    </div>
+    <div class="row">
+        <div class="col" id="show_gijuns">
+        </div>
     </div>
 </div>
 
@@ -53,7 +54,7 @@
 <script src="https://code.jquery.com/jquery-1.12.4.js" type="text/javascript"></script>
 {#<script src="{{ url_for('static', filename='js/jquery-3.4.1.min.js') }}"></script>#}
 <script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
-<script src="{{ url_for('static', filename='js/changeGijun.js') }}"></script>
+<script src="{{ url_for('static', filename='js/changeSelectBox.js') }}"></script>
 </body>
 
 </html>
