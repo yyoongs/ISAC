@@ -1,8 +1,6 @@
 # -- coding: utf-8 --
-#python mysql 연결 드라이버
+# 모델 부분을 (일단) 여기가 대신하고 있음
 import pymysql
-import time
-import datetime
 
 def getConnection():
     return pymysql.connect(host = '133.130.122.150', user = "pingu", password = "datacampus12", db = "ISAC")
@@ -46,18 +44,31 @@ def setCounseling(counsel):
     # 대분류, 중분류에서 전체가 넘어오면 * 으로 처리하기
 
     sql = "INSERT INTO realtime_counsel (title, big_cate, mid_cate, small_cate, question_date, question) VALUES (%s, %s, %s, %s, %s, %s)"
-    params = (counsel['title'], counsel['big'], counsel['mid'],counsel['small'],  counsel['question_date'], counsel['question'])
+    params = (counsel['title'], counsel['big_cate'], counsel['mid_cate'],counsel['small_cate'],  counsel['question_date'], counsel['question'])
     return common_sql(3, sql, params)
 
-# 해결기준 (업종) 가져오기
+# 대분류 가져오기
+def getBigCate():
+    sql = "SELECT name FROM big_category"
+    return common_sql(1, sql)
+
+# 대분류에 따른 중분류 가져오기
+def getMidCate(bname):
+    sql = "SELECT mname FROM counsel_cate WHERE bname=%s"
+    return common_sql(1, sql, bname)
+
+# 업종 가져오기
 def getGijun():
     sql = "SELECT category_name FROM category cate, solution_gijun gijun where cate.id=gijun.id"
     return common_sql(1, sql)
 
+# 업종에 따른 분쟁유형 1 가져오기
 def getTrouble1(upjongName):
     sql = "SELECT gijun.type_1 FROM solution_gijun gijun, category cate WHERE gijun.category_id=cate.id AND cate.category_name=%s GROUP BY gijun.type_1"
     return common_sql(1, sql, upjongName)
 
-def getBigCate():
-    sql = "SELECT name FROM big_category"
-    return common_sql(1, sql)
+# 해결기준과 비고 가져오기
+def getStandardBigo(str1, str2):
+    sql = "SELECT cate.category_name, gijun.type_1, gijun.standard, gijun.bigo FROM solution_gijun gijun, category cate where cate.category_name=%s AND type_1=%s"
+    params = (str1, str2)
+    return common_sql(1, sql, params)

@@ -1,6 +1,8 @@
-from flask import Flask, render_template, request, jsonify
+from flask import Flask, render_template, request
 from datetime import datetime
 from myModule import counselingdao
+from myModule.counselController import counselController
+from myModule.gijunController import gijunController
 from myModule.morpy import getMorph
 from myModule.usado import searchAlgorithm
 import pymysql
@@ -8,42 +10,38 @@ from keras.models import load_model
 import json
 import pandas as pd
 import pickle
+import models
+from flask_sqlalchemy import SQLAlchemy
+import os
+
 
 app = Flask(__name__)
+
+# app.config['SQLALCHEMY_DATABASE_URI'] = "mysql://pingu:datacampus12@133.130.122.150/ISAC"
+# mydb = SQLAlchemy(app)
+
 
 # 메인 페이지
 @app.route('/')
 def index():
-    bigCate = counselingdao.getBigCate()
-    return render_template('index.html', big_cate=bigCate)
+    return counselController.getBigcate()
+    # bigCate = counselingdao.getBigCate()
+    # return render_template('index.html', big_cate=bigCate)
+
+@app.route('/_update_midCate')
+def update_midCate():
+    # print(data)
+    return counselController.updateMidcate()
 
 
 # 실시간 상담 처리
-# GET, POST로만 접근 가능
-@app.route('/result', methods = ['POST', 'GET'])
-def result():
+@app.route('/result', methods = ['POST'])
+def writeCounsel():
     if request.method == 'POST':
-        title = request.form.get('inputTitle')
-        big = request.form.get('SelectBigCate')
-        mid =request.form.get('SelectMidCate')
-        small = request.form.get('SelectSmallCate')
-        question_date = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-        question = request.form.get('inputContent')
-        counsel = {'title':title, 'big':big, 'mid':mid, 'small':small, 'question_date':question_date, 'question':question}
-        counselingdao.setCounseling(counsel)
-        result = counselingdao.getCounseling(question_date)
-
-        # 태깅
-        morphs = getMorph(title + question)
-        print(morphs)
-
-        with open('telecom_models/telecom_key_list.json', encoding='utf8') as f:
-             List = json.load(f)
-
-        model=load_model('telecom_models/telecom_광고서비스_add_paper.h5')
-        model.compile(optimizer='adam', loss='binary_crossentropy', metrics=['accuracy'])
-        t = pd.DataFrame([[1 if _ in morphs else 0 for _ in List]])
-        print(model.predict(t))
+        result = counselController.writeCounsel()
+        morphs = counselController.getMorphs()
+        counselController.predictModel()
+        counselController.mobum_with_test()
 
         return render_template('result.html', result=result, morphs=morphs)
 
@@ -56,28 +54,32 @@ def relation():
 # 해결기준
 @app.route('/solution')
 def solution():
-    upjong = counselingdao.getGijun()
-    return render_template('solution.html', result=upjong)
+    # return render_template('solution.html')
+    return gijunController.getGijun()
 
 
 @app.route('/_update_gijun')
 def update_gijun():
-    # 무슨 업종 선택했는지 가져오기
-    selected_class = request.args.get('selected_class', type=str)
-
-    # 업종에 해당하는 분쟁유형들 가져오기
-    updated_values = counselingdao.getTrouble1(selected_class)
-
-    # 분쟁유형 div에 분쟁유형들 넣기 / 전체는 기본
-    html_string_selected = '<option value="">전체</option>'
+    # print(data)
+    return gijunController.updateTrouble()
 
 
-    for entry in updated_values:
-        print(entry['type_1'])
-        html_string_selected += '<option value="{}">{}</option>'.format(entry['type_1'], entry['type_1'])
+@app.route('/_show_gijun_table')
+def show_gijun_table():
+    return gijunController.showGijunTable()
+    # selected_upjong = request.args.get('selected_class', type=str)
+    # selected_trouble1 = request.args.get('selected_entry', type=str)
+    # result = counselingdao.getStandardBigo(selected_upjong, selected_trouble1)
+    #
+    # print(result)
+    # # print(jsonify(result))
+    #
+    # # 방법 1
+    # return jsonify(datas= result)
 
-    print(html_string_selected)
-    return jsonify(html_string_selected=html_string_selected)
+    # 방법 2
+    # return render_template('solution.html', datas=result)
+
 
 
 if __name__ == '__main__':
