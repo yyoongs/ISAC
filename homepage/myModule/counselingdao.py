@@ -57,6 +57,17 @@ def getMidCate(bname):
     sql = "SELECT mname FROM counsel_cate WHERE bname=%s"
     return common_sql(1, sql, bname)
 
+# 중분류에 따른 소분류 가져오기
+def getSmallCate(mname):
+    print(mname)
+    sql = "SELECT s.name FROM small_category s, mid_category m WHERE s.mid_id=m.id AND m.name=%S"
+    return common_sql(1, sql, mname)
+
+# 상담번호를 통해 모범상담 내용 가져오기
+def getMobumCounsel(counselID):
+    sql = "SELECT title, big_cate, question_date, question, answer_date, answer FROM counsel WHERE counsel_id=%s"
+    return common_sql(1, sql, counselID)
+
 # 업종 가져오기
 def getGijun():
     sql = "SELECT category_name FROM category cate, solution_gijun gijun where cate.id=gijun.id"

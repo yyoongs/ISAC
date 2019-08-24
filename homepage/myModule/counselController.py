@@ -2,19 +2,13 @@ from flask import request, jsonify, render_template
 from datetime import datetime
 from myModule import counselingdao
 from myModule.morpy import getMorph
-from myModule import usadoModel as md
 from settings import APP_STATIC
+from keras import backend as K
 from keras.models import load_model
 import pandas as pd
-import pickle
 import json
 import os
 
-
-doc_list = pickle.load(open('./static/sum_doc.pkl', 'rb'))
-data_recp_num = pickle.load(open('./static/sum_data.pkl', 'rb'))
-result2 = pickle.load(open('./static/sum_result.pkl', 'rb'))
-title = pickle.load(open('./static/sum_title.pkl', 'rb'))
 
 class CounselController():
     def __init__(self):
@@ -36,6 +30,17 @@ class CounselController():
 
         return jsonify(html_string_selected=html_string_selected)
 
+    def updateSmallcate(self):
+        selected_class = request.args.get('selected_class', type=str)
+        print(selected_class)
+        updated_values = counselingdao.getSmallCate(selected_class)
+        print(updated_values)
+        html_string_selected = '<option value="전체">전체</option>';
+        for entry in updated_values:
+            html_string_selected += '<option value="{}">{}</option>'.format(entry['name'], entry['name'])
+
+        print(html_string_selected)
+        return jsonify(html_string_selected=html_string_selected)
 
     # 상담글 작성
     def writeCounsel(self):
@@ -64,6 +69,7 @@ class CounselController():
     # 모델을 통한 예측
     def predictModel(self):
         big = request.form.get('SelectBigCate')
+        print(big)
 
         addPaperModel = load_model(os.path.join(APP_STATIC, 'predictModel/'+big+'_add_paper.h5'))
         addPaperModel.compile(optimizer='adam', loss='binary_crossentropy', metrics=['accuracy'])
@@ -82,6 +88,7 @@ class CounselController():
             List = json.load(f)
         a = ['환불', '디조', '요금', 'as']
         tt = pd.DataFrame([[1 if _ in a else 0 for _ in List[big]]])
+
         print("추가서류 여부 예측")
         print(addPaperModel.predict(tt))
         print("구제 예측")
@@ -90,11 +97,9 @@ class CounselController():
         print(jojungModel.predict(tt))
         print("협상 예측")
         print(negoableModel.predict(tt))
+        K.clear_session()
 
 
-    def mobum_with_test(self):
-        model = md.test_model(title, doc_list, data_recp_num, result2)
-        model.weight_comp('파손 배송 제품 구매', weight=0.35, top=5)
 
 
 counselController = CounselController()

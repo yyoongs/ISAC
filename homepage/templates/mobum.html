@@ -2,20 +2,17 @@
     <div class="row">
         <div class="card w-100">
             <h5 class="card-header" id="mobumHeading">
-                {#        <h4 class="card-title">#}
-                <a data-toggle="collapse" data-target="#mobumAnswer" aria-expanded="true" aria-controls="mobumAnswer"
-                   href="#mobumAnswer">관련 모범 답변</a>
-                {#        </h4>#}
+                <a data-toggle="collapse" data-target="#mobumAnswer" aria-expanded="true" aria-controls="mobumAnswer" href="#mobumAnswer">관련 상담 조회</a>
             </h5>
             <div id="mobumAnswer" class="answer-body collapse show" aria-labelledby="mobumHeading"
                  data-parent="#accordionCard">
                 <ul class="list-group list-group-flush">
-                    <li class="list-group-item"><a href="#">첫번째 모범 답변</a></li>
-                    <li class="list-group-item"><a href="#">두번째 모범 답변</a></li>
-                    <li class="list-group-item"><a href="#">세번째 모범 답변</a></li>
-                    <li class="list-group-item"><a href="#">네번째 모범 답변</a></li>
-                    <li class="list-group-item"><a href="#">다섯번째 모범 답변</a></li>
-
+                {% for id, title, usado in mobumList %}
+                    <li class="list-group-item">
+                        <span class="leftText"><a href="{{ '/mobumCounsel/%s'%id|urlencode }}">{{ title }}</a></span>
+                        <span class="rightText">{{ usado }}%</span>
+                    </li>
+                {% endfor %}
                 </ul>
             </div>
         </div>

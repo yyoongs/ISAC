@@ -10,8 +10,8 @@ class MobumController():
     def getMobum(self):
         title = request.form.get('inputTitle')
         print(type(title))
-        mobumID,mobumTitle = mobum_model.weight_comp(title)
-        return mobumID, mobumTitle
+        mobumID,mobumTitle, usado = mobum_model.weight_comp(title)
+        return mobumID, mobumTitle, usado
 
     def getMobumContent(self, counselID):
         mobumContent = counselingdao.getMobumCounsel(counselID)
