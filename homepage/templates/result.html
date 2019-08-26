@@ -1,11 +1,8 @@
 <html>
-
 <head>
-    <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <!-- Bootstrap CSS -->
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
     <title>ISAC 실시간 상담 조회</title>
@@ -23,15 +20,14 @@
             {% endif %}
         </div>
         <div class="col-lg-4">
-            {% include 'mobum.html' %}
+            {% if mobumList %}
+                {% include 'mobum.html' %}
+            {% endif %}
         </div>
     </div>
 </div>
 
-<!-- Optional JavaScript -->
-<!-- jQuery first, then Bootstrap JS -->
 <script src="{{ url_for('static', filename='js/jquery-3.4.1.min.js') }}"></script>
 <script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
 </body>
-
 </html>

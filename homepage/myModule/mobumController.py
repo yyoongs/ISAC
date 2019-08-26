@@ -1,7 +1,7 @@
 from flask import request
 from myModule import counselingdao
-from myModule.usadoModel import mobum_model
-
+from myModule.usadoModel import doc2vec_model
+import numpy
 
 class MobumController():
     def __init__(self):
@@ -10,8 +10,8 @@ class MobumController():
     def getMobum(self):
         title = request.form.get('inputTitle')
         print(type(title))
-        mobumID,mobumTitle, usado = mobum_model.weight_comp(title)
-        return mobumID, mobumTitle, usado
+        result1,result2vec, finalResult = doc2vec_model.doc2vec_weight_comp(title)
+        return result1,result2vec, finalResult
 
     def getMobumContent(self, counselID):
         mobumContent = counselingdao.getMobumCounsel(counselID)

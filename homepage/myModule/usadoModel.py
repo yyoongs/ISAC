@@ -1,9 +1,10 @@
-from konlpy.tag import Kkma, Okt
+from konlpy.tag import Okt
+from gensim.models import Word2Vec
+from gensim.models.doc2vec import Doc2Vec, TaggedDocument
 import json
 from sklearn.feature_extraction.text import TfidfVectorizer
 import numpy as np
 import time
-from gensim.models import Word2Vec
 import pickle
 import requests
 import urllib3
@@ -13,7 +14,13 @@ data = pickle.load(open('./static/sum_data.pkl', 'rb'))
 result = pickle.load(open('./static/sum_result.pkl', 'rb'))
 title = pickle.load(open('./static/sum_title.pkl', 'rb'))
 
-class test_model():
+# with open(os.path.join(APP_STATIC, ("doc2vec.pkl", "rb"))) as file:
+#     pkl_model_load = pickle.load(file)
+
+pkl_model_load = pickle.load(open('./static/doc2vec.pkl', 'rb'))
+
+
+class word2hybrid():
     def __init__(self, title, doc, data_num, result):
         self.data_recp_num = data_num
         self.title = title
@@ -29,35 +36,26 @@ class test_model():
         self.doc_list.insert(0, doc)
 
     def get_info(self, doc_list, top=5):
-
         tfidf_vectorizer = TfidfVectorizer(min_df=1)
         tfidf_matrix = tfidf_vectorizer.fit_transform(doc_list)
-
         multiple = tfidf_matrix[0, :] * tfidf_matrix.T
-
         multiple = multiple.toarray()
-
         argsort = np.argsort(-multiple)  # tfidf vectorize 계산한 multiple을 argsort를 이용해 높은순으로 정렬
         idx = 0
         n = 0
         index_list = list()
         similar_list = list()
-        #     top5idx = argsort[0][:5] # 높은순으로 5개 뽑음
-        print(f'검색할 제목 : {self.title[0]}')  # 검사할 상담 제목 출력
+
         while True:
-            # 인덱스가 자기 자신이거나 유사도가 1일경우 제외
             if argsort[0][idx] == 0:
                 idx += 1
                 continue
             elif multiple[0][argsort[0][idx]] < 0.3:
-                print('유사도가 30%이하로 너무 낮아 더이상 뽑을 수 없습니다')
                 break
             elif n == top:
                 break
             else:
-                print(f'제목 : {self.title[argsort[0][idx]]} index : {argsort[0][idx]} 유사도 : {(multiple[0][argsort[0][idx]] * 100).round(2)}%')
                 index_list.append(argsort[0][idx])
-                #                 similar_list.append(multiple[0][argsort[0][idx]])
                 idx += 1
                 n += 1
 
@@ -66,10 +64,7 @@ class test_model():
     # 덧셈 후 cos 유사도 계산
     def getvector(self, text):
         v_f = np.zeros(shape=(self.model.wv.vectors.shape[1],))
-        pr = list()
-        print(text)
         text_1 = self.get_feature(text)
-        print(text_1)
         text_list = text_1[0][0].split(' ')
         text_list2 = list()
         for noun in text_list:
@@ -77,15 +72,20 @@ class test_model():
                 text_list2.append(noun)
             else:
                 pass
-
         for line in text_list2:
             v_f += self.model.wv.get_vector(line)
         sim = self.model.wv.cosine_similarities(v_f, self.model.wv.vectors)
         argsim = np.argsort(-sim)
-        for idx in argsim[:5]:
-            text_list2.append(self.model.wv.index2word[idx])
+        n = 0
+        for idx in argsim:
+            if n == 5:
+                break
+            elif self.model.wv.index2word[idx] in text_list2:
+                pass
+            else:
+                text_list2.append(self.model.wv.index2word[idx])
+                n += 1
         chec = ' '.join(text_list2)
-        print(chec)
         return chec
 
     def topIndex(self, input_text, top=5):
@@ -93,56 +93,59 @@ class test_model():
         self.title.insert(0, input_text)
         self.okt_noun_add(input_text)
         index_list, mul = self.get_info(self.doc_list, top)
-
         self.doc_list.pop(0)
         self.title.pop(0)
 
         return list(map(lambda x: x - 1, index_list)), mul
 
-    # 단어 기반 비교 후 접수번호 가져오는 함수
-    def get_receipt_num(self, input_text, top=5):
-        index_list, mul = self.topIndex(input_text, top)
-        return list(map(lambda x: self.data_recp_num[x], index_list))
+    def top_word2vec_index(self, input_text, top=5):
+        index_list = []
+        self.title.insert(0, input_text)
+        self.doc_list.insert(0, input_text)
+        index_list, mul = self.get_info(self.doc_list, top)
+        self.doc_list.pop(0)
+        self.title.pop(0)
 
-    # word2vec 기반 비교 후 접수번호 가져오는 함수
-    def get_word2vec_receipt_num(self, input_text, top=5):
-        index_list, mul = self.topIndex(self.getvector(input_text), top)
-        return list(map(lambda x: self.data_recp_num[x], index_list))
+        return list(map(lambda x: x - 1, index_list)), mul
 
-        # 두 방법의 유사도 분석 기법을 비교 후 알맞은 weight 보기위한 함수
-
+    # 두 방법의 유사도 분석 기법을 비교 후 알맞은 weight 보기위한 함수
     def weight_comp(self, input_1, weight=0.35, top=5):
-        print(f'\n-------------------입력 단어기반 제목 비교 분석(weight={weight})---------------------\n')
         idx1, sim1 = self.topIndex(input_1, top)
-        print(f'\n----------입력 단어기반 word2vce 적용한 태깅 분석(weight={1 - weight})----------------\n')
-        idx2, sim2 = self.topIndex(self.getvector(input_1), top)
-        print('\n---------------------------결과------------------------------------------\n')
+        idx2, sim2 = self.top_word2vec_index(self.getvector(input_1), top)
         ssim = sim1 * weight + sim2 * (1 - weight)
+        result1 = self.get_list(sim1, top=top)
+        result2 = self.get_list(sim2, top=top)
+        result3 = self.get_list(ssim, top=top)
+        return result1, result2, result3
+
+    # 유사도 매트릭스를 가지고 title과 접수번호와 유사도 리스트를 가지고 있는 리스트셋 리턴 시켜주는 함수
+    def get_list(self, similarity, top=5):
         n = 0
         idx = 0
+        result_result = list()
         sum_index_list = list()
         sum_title_list = list()
         sum_similar_list = list()
-        argsort = np.argsort(-ssim)
+        argsort = np.argsort(-similarity)
         while True:
-            # 인덱스가 자기 자신이거나 유사도가 1일경우 제외
             if argsort[0][idx] == 0:
                 idx += 1
                 continue
-            #             elif ssim[0][argsort[0][idx]] < 0.3:
-            #                 print('유사도가 30%이하로 너무 낮아 더이상 뽑을 수 없습니다')
-            #                 break
+            elif similarity[0][argsort[0][idx]] < 0.35:
+                break
             elif n == top:
                 break
             else:
-                print(f'제목 : {self.title[int(argsort[0][idx]) - 1]} index : {int(argsort[0][idx]) - 1} 유사도 : {(ssim[0][argsort[0][idx]] * 100).round(2)} % ')
-            sum_index_list.append(argsort[0][idx])
-            sum_title_list.append(self.title[int(argsort[0][idx]) - 1])
-            sum_similar_list.append((ssim[0][argsort[0][idx]] * 100).round(2))
-            idx += 1
-            n += 1
-
-        return list(map(lambda x: self.data_recp_num[x], list(map(lambda x: x - 1, sum_index_list)))), sum_title_list, sum_similar_list
+                sum_index_list.append(argsort[0][idx])
+                sum_title_list.append(self.title[int(argsort[0][idx]) - 1])
+                sum_similar_list.append((similarity[0][argsort[0][idx]] * 100).round(2))
+                sum_recp_list = list(map(lambda x: self.data_recp_num[x], list(map(lambda x: x - 1, sum_index_list))))
+                idx += 1
+                n += 1
+        result_result.append(sum_recp_list)
+        result_result.append(sum_title_list)
+        result_result.append(sum_similar_list)
+        return result_result
 
     # 분석을 위해 str 형식으로 변환
     def list2str(self, nounList):
@@ -189,7 +192,6 @@ class test_model():
             morp_list = list()
 
             for m in morp:
-                # print(s['text'], m['lemma'])
                 if m['type'][0:2] == 'NN' or m['type'] == 'VV':
                     morp_list.append(m['lemma'])
 
@@ -201,5 +203,66 @@ class test_model():
 
         return sentence_noun_list, text_length, list(sen_dict.keys())
 
-mobum_model=test_model(title, doc, data, result)
+
+class word2hybrid_update(word2hybrid):
+    def __init__(self, title, doc, data_num, result, pkl_model):
+        super().__init__(title, doc, data_num, result)
+        self.doc2vec_model = pkl_model
+        self.documents = [TaggedDocument(doc, [i]) for i, doc in enumerate(result)]
+
+    def text_pre_processing(self, input_text):
+        text_feature = super().get_feature(input_text)
+        text_list = text_feature[0][0].split(' ')
+        final_text_list = list()
+        for noun in text_list:
+            if noun in self.model.wv.vocab.keys():
+                final_text_list.append(noun)
+            else:
+                pass
+
+        return final_text_list
+
+    def text2doc(self, text_list):
+        doc = TaggedDocument(text_list, [0])
+        return doc.words
+
+    def text2sims(self, input_text):
+        text_list = self.text_pre_processing(input_text)
+        doc = self.text2doc(text_list)
+        ranks = []
+        second_ranks = []
+        inferred_vector = self.doc2vec_model.infer_vector(doc)
+        sims = self.doc2vec_model.docvecs.most_similar([inferred_vector], topn=10)
+        title_list = []
+        recp_num_list = []
+        idx_list = []
+        sims_list = list(map(lambda x: round(x[1] * 100, 2), sims))
+
+        for idx, sim in sims:
+            title_list.append(self.title[idx])
+            recp_num_list.append(self.data_recp_num[idx])
+            idx_list.append(idx)
+
+        return recp_num_list, title_list, sims_list, idx_list
+
+    def weight_comp(self, input_1, update=[], update_weight=1.1, weight=0.35, top=5):
+        idx1, sim1 = self.topIndex(input_1, top)
+        idx2, sim2 = self.top_word2vec_index(self.getvector(input_1), top)
+        ssim = sim1 * weight + sim2 * (1 - weight)
+        for idx in update:
+            ssim[0][idx + 1] = ssim[0][idx + 1] * update_weight
+
+        result1 = self.get_list(sim1, top=top)
+        result2 = self.get_list(sim2, top=top)
+        result3 = self.get_list(ssim, top=top)
+        return result1, result2, result3
+
+    def doc2vec_weight_comp(self, input_text, update_weight=1.1, weight=0.35, top=5):
+        sims_list = self.text2sims(input_text)
+        return self.weight_comp(input_text, update=sims_list[3], update_weight=update_weight, weight=weight, top=top)
+
+
+
+
+doc2vec_model = word2hybrid_update(title, doc, data, result, pkl_model_load)
 

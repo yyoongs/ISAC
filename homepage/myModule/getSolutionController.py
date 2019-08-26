@@ -174,7 +174,7 @@ def cmpGijun(similar_tag, item, itemcode):
 
     # 결과값이 있을때
     if chk != () or chk2 != ():
-        res = chk2 if chk==() else res=chk
+        res = chk2 if chk==() else chk
         # if chk == ():
         #     res = chk2
         # else:

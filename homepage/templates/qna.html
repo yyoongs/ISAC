@@ -5,23 +5,19 @@
             <div class="row">
                 <div class="col-sm-6">대분류 : {{ result.big_cate }}</div>
                 {#                            <div class="col-sm-4">중분류 : {{ result.mid_cate }}</div>#}
-                <div class="col-sm-6">작성일 : {{ result.question_date }}</div>
+                <div class="col-sm-6">작성일 : {{ result.question_date|safe }}</div>
             </div>
             <div class="contents">
                 {{ result.question }}
             </div>
-        {% endfor %}
     </div>
     <hr>
+
     <div id="a_section">
-
         <div class="title"><b class="realTime">A</b>답변</div>
-
         <div class="contents">
-            {% for morph in morphs %}
-                {{ morph }}
-
-            {% endfor %}
+            {{ result.answer|safe }}
+        {% endfor %}
         </div>
     </div>
 </div>

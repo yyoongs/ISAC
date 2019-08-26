@@ -87,12 +87,14 @@ def getTrouble2(upjongName, trouble1):
     # sql = "SELECT gijun.type_2 FROM solution_gijun gijun, solution_category cate WHERE gijun.category_id=cate.id AND cate.category_name=%s AND cate.type_1=%s GROUP BY gijun.type_2"
     return common_sql(1, sql, params)
 
+# 분쟁유형2에 따른 분쟁유형3 가져오기
 def getTrouble3(upjongName, trouble1, trouble2):
     sql = "SELECT type_3 FROM solution WHERE category_name=%s AND type_1=%s AND type_2=%s GROUP BY type_3"
     params=(upjongName,trouble1, trouble2)
     # sql = "SELECT gijun.type_2 FROM solution_gijun gijun, solution_category cate WHERE gijun.category_id=cate.id AND cate.category_name=%s AND cate.type_1=%s GROUP BY gijun.type_2"
     return common_sql(1, sql, params)
 
+# 분쟁유형3에 따른 분쟁유형4 가져오기
 def getTrouble4(upjongName, trouble1, trouble2, trouble3):
     sql = "SELECT type_4 FROM solution WHERE category_name=%s AND type_1=%s AND type_2=%s AND type_3=%s GROUP BY type_4"
     params=(upjongName,trouble1, trouble2, trouble3)
@@ -100,10 +102,12 @@ def getTrouble4(upjongName, trouble1, trouble2, trouble3):
     return common_sql(1, sql, params)
 
 # 해결기준과 비고 가져오기
-def getStandardBigo(str1, str2):
-    sql = "SELECT category_name, type_1, standard, bigo FROM solution where category_name=%s AND type_1=%s"
-    params = (str1, str2)
+def getStandardBigo(cname, t1, t2='', t3='', t4=''):
+    print(cname, t1, t2, t3, t4)
+    sql = "SELECT category_name, type_1, standard, bigo FROM solution where category_name=%s AND type_1=%s AND type_2=%s AND type_3=%s AND type_4=%s"
+    params = (cname, t1, t2, t3, t4)
     return common_sql(1, sql, params)
+
 
 
 # 들어온 소분류로 태깅된 단어 빈도수 체크
