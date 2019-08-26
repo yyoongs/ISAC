@@ -58,10 +58,11 @@ def getMidCate(bname):
     return common_sql(1, sql, bname)
 
 # 중분류에 따른 소분류 가져오기
-def getSmallCate(mname):
-    print(mname)
-    sql = "SELECT s.name FROM small_category s, mid_category m WHERE s.mid_id=m.id AND m.name=%S"
-    return common_sql(1, sql, mname)
+def getSmallCate(bname, mname):
+    print("DB에서 가져와야해 "+bname + mname)
+    sql = "SELECT sname FROM counsel_cate_s WHERE bname=%s AND mname=%s"
+    params = (bname, mname)
+    return common_sql(1, sql, params)
 
 # 상담번호를 통해 모범상담 내용 가져오기
 def getMobumCounsel(counselID):
@@ -70,16 +71,61 @@ def getMobumCounsel(counselID):
 
 # 업종 가져오기
 def getGijun():
-    sql = "SELECT category_name FROM category cate, solution_gijun gijun where cate.id=gijun.id"
+    sql = "SELECT category_name FROM solution GROUP BY category_name"
     return common_sql(1, sql)
 
 # 업종에 따른 분쟁유형 1 가져오기
 def getTrouble1(upjongName):
-    sql = "SELECT gijun.type_1 FROM solution_gijun gijun, category cate WHERE gijun.category_id=cate.id AND cate.category_name=%s GROUP BY gijun.type_1"
+    sql = "SELECT type_1 FROM solution WHERE category_name=%s GROUP BY type_1"
+    # sql = "SELECT gijun.type_1 FROM solution_gijun gijun, solution_category cate WHERE gijun.category_id=cate.id AND cate.category_name=%s GROUP BY gijun.type_1"
     return common_sql(1, sql, upjongName)
+
+# 분쟁유형1에 따른 분쟁유형2 가져오기
+def getTrouble2(upjongName, trouble1):
+    sql = "SELECT type_2 FROM solution WHERE category_name=%s AND type_1=%s GROUP BY type_2"
+    params=(upjongName,trouble1)
+    # sql = "SELECT gijun.type_2 FROM solution_gijun gijun, solution_category cate WHERE gijun.category_id=cate.id AND cate.category_name=%s AND cate.type_1=%s GROUP BY gijun.type_2"
+    return common_sql(1, sql, params)
+
+def getTrouble3(upjongName, trouble1, trouble2):
+    sql = "SELECT type_3 FROM solution WHERE category_name=%s AND type_1=%s AND type_2=%s GROUP BY type_3"
+    params=(upjongName,trouble1, trouble2)
+    # sql = "SELECT gijun.type_2 FROM solution_gijun gijun, solution_category cate WHERE gijun.category_id=cate.id AND cate.category_name=%s AND cate.type_1=%s GROUP BY gijun.type_2"
+    return common_sql(1, sql, params)
+
+def getTrouble4(upjongName, trouble1, trouble2, trouble3):
+    sql = "SELECT type_4 FROM solution WHERE category_name=%s AND type_1=%s AND type_2=%s AND type_3=%s GROUP BY type_4"
+    params=(upjongName,trouble1, trouble2, trouble3)
+    # sql = "SELECT gijun.type_2 FROM solution_gijun gijun, solution_category cate WHERE gijun.category_id=cate.id AND cate.category_name=%s AND cate.type_1=%s GROUP BY gijun.type_2"
+    return common_sql(1, sql, params)
 
 # 해결기준과 비고 가져오기
 def getStandardBigo(str1, str2):
-    sql = "SELECT cate.category_name, gijun.type_1, gijun.standard, gijun.bigo FROM solution_gijun gijun, category cate where cate.category_name=%s AND type_1=%s"
+    sql = "SELECT category_name, type_1, standard, bigo FROM solution where category_name=%s AND type_1=%s"
     params = (str1, str2)
     return common_sql(1, sql, params)
+
+
+# 들어온 소분류로 태깅된 단어 빈도수 체크
+def countGijunBySmall(sname):
+    sql = 'select type_1, b.category_id from itemlist as a join solution_gijun as b on a.category_id = b.category_id where a.name = %s'
+    return common_sql(1, sql, sname)
+
+# 들어온 중분류로 태깅된 단어 빈도수 체크
+def countGijunByMiddle(mname):
+    sql = 'select type_1, b.category_id from itemlist as a join solution_gijun as b on a.category_id = b.category_id where a.name = %s'
+    return common_sql(1, sql, mname)
+
+def getGijunList(type1, id):
+    print(type1, id)
+    sql = 'select type_1, type_2, type_3, type_4, standard, bigo from solution_gijun where type_1 = %s and category_id = %s'
+    params = (type1, id)
+    return common_sql(1, sql, params)
+
+
+
+# 태깅을 위한 해당 중분류 모범상담 태그 데이터 불러오기
+def getMobum(mname):
+    sql = 'select id from mid_category where name = %s'
+    return common_sql(1, sql, mname)
+    # cur.execute('select id from mid_category where name = %s', itemcode)

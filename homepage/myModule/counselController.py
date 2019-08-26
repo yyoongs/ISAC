@@ -8,7 +8,7 @@ from keras.models import load_model
 import pandas as pd
 import json
 import os
-
+from myModule.getSolutionController import getSolution
 
 class CounselController():
     def __init__(self):
@@ -21,26 +21,25 @@ class CounselController():
 
 
     def updateMidcate(self):
-        selected_class = request.args.get('selected_class', type=str)
+        selected_class = request.args.get('selected_big', type=str)
         updated_values = counselingdao.getMidCate(selected_class)
 
-        html_string_selected='<option value="전체">전체</option>';
+        html_string_selected='<option value="">전체</option>';
         for entry in updated_values:
             html_string_selected += '<option value="{}">{}</option>'.format(entry['mname'], entry['mname'])
 
         return jsonify(html_string_selected=html_string_selected)
 
-    def updateSmallcate(self):
-        selected_class = request.args.get('selected_class', type=str)
-        print(selected_class)
-        updated_values = counselingdao.getSmallCate(selected_class)
-        print(updated_values)
-        html_string_selected = '<option value="전체">전체</option>';
-        for entry in updated_values:
-            html_string_selected += '<option value="{}">{}</option>'.format(entry['name'], entry['name'])
 
-        print(html_string_selected)
+    def updateSmallcate(self, bigCate, midCate):
+        updated_values = counselingdao.getSmallCate(bigCate, midCate)
+
+        html_string_selected = '<option value="">전체</option>';
+        for entry in updated_values:
+            html_string_selected += '<option value="{}">{}</option>'.format(entry['sname'], entry['sname'])
+
         return jsonify(html_string_selected=html_string_selected)
+
 
     # 상담글 작성
     def writeCounsel(self):
@@ -51,11 +50,19 @@ class CounselController():
         question_date = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
         question = request.form.get('inputContent')
 
+        # 답변을 여기다가 넣기
+
         counsel = {'title': title, 'big_cate': big, 'mid_cate': mid, 'small_cate': small,
                    'question_date': question_date,
                    'question': question}
+        gijun = getSolution(counsel)
+        counsel['answer']=gijun
         counselingdao.setCounseling(counsel)
         result = counselingdao.getCounseling(question_date)
+
+        # 들어온 상담에 대해서 결과값 출력
+        # gijun = getSolution(counsel)
+
         return result
 
 
@@ -98,8 +105,6 @@ class CounselController():
         print("협상 예측")
         print(negoableModel.predict(tt))
         K.clear_session()
-
-
 
 
 counselController = CounselController()
