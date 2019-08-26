@@ -15,29 +15,31 @@
 </head>
 
 <body>
-{% include 'menu.html' %}
+    {% include 'menu.html' %}
 
 <section id="indexSection">
     <div>
         <div class="row">
             <div class="col-sm-6 offset-sm-3" id="introduction">
-                킹갓제너럴아이작
+                KING GOD
             </div>
         </div>
         <div class="row">
             <div class="col-sm-6 offset-sm-3 ">
-{#                <div class="wrap">#}
-                    <div class="search">
-                        <input type="text" class="searchTerm" placeholder="상담을 시작합니다">
-                        <button type="submit" class="searchButton" data-toggle="modal" data-target="#counselModal">
-                            <i class="fa fa-search"></i>
-                        </button>
-{#                    </div>#}
+                {#                <div class="wrap">#}
+                <div class="search">
+                    <input type="text" class="searchTerm" placeholder="상담을 시작합니다">
+                    <button type="submit" class="searchButton" data-toggle="modal" data-target="#counselModal">
+                        <i class="fa fa-search"></i>
+                    </button>
+                    {#                    </div>#}
                 </div>
             </div>
 
         </div>
     </div>
+
+
 </section>
 
 <!-- Modal -->
@@ -52,20 +54,19 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form action="{{ url_for('result') }}" method="POST">
+                <form action="{{ url_for('writeCounsel') }}" method="POST" id="counselForm" >
                     <div class="form-row">
                         <div class="form-group col">
                             <label for="title" class="col-form-label">제목</label>
                             <input type="text" class="form-control" id="inputTitle" name="inputTitle"
-                                   placeholder="제목을 작성해주세요." required>
+                                   placeholder="제목을 작성해주세요." required="" data-parsley-error-message="제목을 입력해주세요.">
                         </div>
                     </div>
                     <div class="form-row">
                         <div class="form-group col-md-6">
                             <label for="BigCategory">대분류</label>
-                            <select class="form-control" id="SelectBigCate" name="SelectBigCate"
-                                    onchange="changeBigCate(this.value)" required>
-                                <option>전체</option>
+                            <select class="form-control" id="SelectBigCate" name="SelectBigCate" required="" data-parsley-error-message="대분류를 선택해주세요.">
+                                <option value="">전체</option>
                                 {% for row in big_cate %}
                                     <option value="{{ row.name }}">{{ row.name }}</option>
                                 {% endfor %}
@@ -73,15 +74,14 @@
                         </div>
                         <div class="form-group col-md-6">
                             <label for="MiddleCategory">중분류</label>
-                            <select class="form-control" id="SelectMidCate" name="SelectMidCate" required>
-                                <option>전체</option>
+                            <select class="form-control" id="SelectMidCate" name="SelectMidCate" required="" data-parsley-error-message="중분류를 선택해주세요.">
+                                <option value="">전체</option>
                             </select>
                         </div>
                         <div class="form-group col-md-6">
                             <label for="SmallCategory">소분류</label>
-                            <select class="form-control" id="SelectSmallCate" name="SelectSmallCate"
-                                    onchange="changeMidCate(this.value)">
-                                <option selected>전체</option>
+                            <select class="form-control" id="SelectSmallCate" name="SelectSmallCate" required="" data-parsley-error-message="소분류를 선택해주세요.">
+                                <option value="">전체</option>
                             </select>
                         </div>
                         {#                        <div class="form-group col-md-6">#}
@@ -89,7 +89,7 @@
                         {#                            <select class="form-control" id="SelectSituation" name="SelectSituation">#}
                         {#                                <option selected>----</option>#}
                         {#                                <option value="고장">고장</option>#}
-                        {#                                <option value="환">환불</option>#}
+                        {#                                <option value="환불">환불</option>#}
                         {#                                <option value="AS">A/S</option>#}
                         {#                            </select>#}
                         {#                        </div>#}
@@ -97,13 +97,13 @@
                     <div class="form-row">
                         <div class="form-group col">
                             <label for="inputcontent">내용</label>
-                            <textarea class="form-control" rows="8" id="comment" placeholder="내용을 작성해주세요."
-                                      name="inputContent" required></textarea>
+                            <textarea class="form-control" rows="8" id="inputContent" placeholder="내용을 작성해주세요."
+                                      name="inputContent" required="" data-parsley-error-message="내용을 입력해주세요."></textarea>
                         </div>
                     </div>
 
                     <div class="text-center">
-                        <button type="submit" class="btn btn-dark">제출하기</button>
+                        <button type="submit" class="btn btn-dark" id="submitCounsel">제출하기</button>
                         <button type="button" class="btn btn-light" data-dismiss="modal">닫기</button>
                     </div>
 
@@ -111,12 +111,20 @@
             </div>
         </div>
     </div>
+<div id="mask"></div>
+<div id="spinner"></div>
+
 </div>
 
 <!-- Optional JavaScript -->
 <!-- jQuery first, then Bootstrap JS -->
 <script src="{{ url_for('static', filename='js/jquery-3.4.1.min.js') }}"></script>
+{#<script src="https://code.jquery.com/jquery-1.12.4.js" type="text/javascript"></script>#}
+<script src="{{ url_for('static', filename='js/parsley.js') }}"></script>
+
+<script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js"></script>
 <script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
 <script src="{{ url_for('static', filename='js/changeSelectBox.js') }}"></script>
+<script src="{{ url_for('static', filename='js/loading.js') }}"></script>
 </body>
 </html>

@@ -1,10 +1,3 @@
-/* CSS class/id 설명
-1. container : 위에 메뉴 높이가 90px이라 그 아래부터 시작해야해서 무조건 있어야함
-2.
-3.
-4.
-
-*/
 @import url('https://fonts.googleapis.com/css?family=Noto+Sans+KR:100,300,400,500,700,900&display=swap&subset=korean');
 
 body, html {
@@ -110,7 +103,6 @@ body, html {
 .basic_container {
     margin-top: 30px;
 }
-
 /***** 공통 끝 *****/
 
 /***** index 인덱스 *****/
@@ -230,6 +222,56 @@ body, html {
   transform: translate(-50%, -50%);
 }
 
+        #mask {
+	  position:absolute;
+	  left:0;
+	  top:0;
+	  z-index:100;
+	  background-color:#000;
+	  display:none;
+	}
+       #loadingImg {
+	  position:absolute;
+	  left:45%;
+	  top:50%;
+	  z-index:120;
+	}
+
+        input.parsley-success,
+select.parsley-success,
+textarea.parsley-success {
+  color: #000000;
+  background-color: #ffffff;
+  border: 1px solid #5a6268;
+}
+
+input.parsley-error,
+select.parsley-error,
+textarea.parsley-error {
+  color: #B94A48;
+  background-color: #F2DEDE;
+  border: 1px solid #EED3D7;
+}
+
+.parsley-errors-list {
+  margin: 2px 0 3px;
+  padding: 0;
+  list-style-type: none;
+  font-size: 0.9em;
+  line-height: 0.9em;
+  opacity: 0;
+  color: #B94A48;
+
+  transition: all .3s ease-in;
+  -o-transition: all .3s ease-in;
+  -moz-transition: all .3s ease-in;
+  -webkit-transition: all .3s ease-in;
+}
+
+.parsley-errors-list.filled {
+  opacity: 1;
+}
+
 
 /***** index 인덱스 끝 *****/
 
@@ -256,48 +298,151 @@ body, html {
 /***** qna.html 끝 *****/
 
 /***** mobum.html *****/
- .card {
-            margin-bottom: 10px;
-        }
+.card {
+    margin-bottom: 10px;
+}
 
-        .card-header {
-            background-color: #E7E7E7;
-        }
+.card-header {
+    background-color: #E7E7E7;
+}
 
-        .card-header > a:link,
-        .card-header > a:visited {
-            color: #000;
-            font-size: 16px;
-            padding: 8px 10px 8px 6px;
-        }
+.card-header > a:link,
+.card-header > a:visited {
+    color: #000;
+    font-size: 16px;
+    padding: 8px 10px 8px 6px;
+}
 
-        .answer-body > .list-group > .list-group-item > a:link,
-        .answer-body > .list-group > .list-group-item > a:visited {
-            color: #000;
-            font-size: 13px;
-            padding: 8px 10px 8px 6px;
-        }
+.answer-body > .list-group > .list-group-item > .leftText > a:link,
+.answer-body > .list-group > .list-group-item > .leftText > a:visited {
+    color: #000;
+    font-size: 13px;
+    padding: 8px 10px 8px 6px;
+}
 
-        .card-header > a:hover,
-        .card-header > a:active {
-            color: #F1C40F;
-            font-size: 16px;
-            padding: 8px 10px 8px 6px;
-            text-decoration: none;
-        }
+.card-header > a:hover,
+.card-header > a:active {
+    color: #F1C40F;
+    font-size: 16px;
+    padding: 8px 10px 8px 6px;
+    text-decoration: none;
+}
 
-        .answer-body > .list-group > .list-group-item > a:hover,
-        .answer-body > .list-group > .list-group-item > a:active {
-            color: #F1C40F;
-            text-decoration: none;
-            font-size: 13px;
-            padding: 8px 10px 8px 6px;
-        }
+.answer-body > .list-group > .list-group-item > .leftText > a:hover,
+.answer-body > .list-group > .list-group-item > .leftText > a:active {
+    color: #F1C40F;
+    text-decoration: none;
+    font-size: 13px;
+    padding: 8px 10px 8px 6px;
+}
 
+.rightText {
+    float: right;
+    font-size: 13px;
+}
+
+.leftText {
+    float: left;
+}
 /***** mobum.html 끝 *****/
 
-/***** qna.html *****/
+/***** result.html *****/
 .realTime{
     margin-right : 8px;
 }
 /***** result.html 끝 *****/
+
+/**** 404 에러 핸들링 ****/
+#notfound {
+  position: relative;
+  height: 100vh;
+}
+
+#notfound .notfound {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  -webkit-transform: translate(-50%, -50%);
+      -ms-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+}
+
+.notfound {
+  max-width: 520px;
+  width: 100%;
+  line-height: 1.4;
+  text-align: center;
+}
+
+.notfound .notfound-404 {
+  position: relative;
+  height: 240px;
+}
+
+.notfound .notfound-404 h1 {
+  font-family: 'Montserrat', sans-serif;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  -webkit-transform: translate(-50%, -50%);
+      -ms-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+  font-size: 252px;
+  font-weight: 900;
+  margin: 0px;
+  color: #262626;
+  text-transform: uppercase;
+  letter-spacing: -40px;
+  margin-left: -20px;
+}
+
+.notfound .notfound-404 h1>span {
+  text-shadow: -8px 0px 0px #fff;
+}
+
+.notfound .notfound-404 h3 {
+  font-family: 'Cabin', sans-serif;
+  position: relative;
+  font-size: 16px;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: #262626;
+  margin: 0px;
+  letter-spacing: 3px;
+  padding-left: 6px;
+}
+
+.notfound h2 {
+  font-family: 'Cabin', sans-serif;
+  font-size: 20px;
+  font-weight: 400;
+  text-transform: uppercase;
+  color: #000;
+  margin-top: 0px;
+  margin-bottom: 25px;
+}
+
+@media only screen and (max-width: 767px) {
+  .notfound .notfound-404 {
+    height: 200px;
+  }
+  .notfound .notfound-404 h1 {
+    font-size: 200px;
+  }
+}
+
+@media only screen and (max-width: 480px) {
+  .notfound .notfound-404 {
+    height: 162px;
+  }
+  .notfound .notfound-404 h1 {
+    font-size: 162px;
+    height: 150px;
+    line-height: 162px;
+  }
+  .notfound h2 {
+    font-size: 16px;
+  }
+}
+
+/**** 404 에러 핸들링 끝 ****/
