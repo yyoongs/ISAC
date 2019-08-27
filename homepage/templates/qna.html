@@ -5,26 +5,86 @@
             <div class="row">
                 <div class="col-sm-6">대분류 : {{ result.big_cate }}</div>
                 {#                            <div class="col-sm-4">중분류 : {{ result.mid_cate }}</div>#}
-                <div class="col-sm-6">작성일 : {{ result.question_date|safe }}</div>
+                <div class="col-sm-6">작성일 : {{ result.question_date}}</div>
             </div>
-            <div id="q" class="contents">
+            <div id = "q" class="contents">
                 {{ result.question }}
             </div>
         {% endfor %}
     </div>
     <hr>
-
     <div id="a_section">
 
-        <div class="title"><b class="realTime" id="aTime">A</b>답변</div>
+        <div class="title"><b class="realTime">A</b>답변</div>
 
         <div id = "a" class="contents">
-            <b>{{ cname }}</b> 해결기준에 따르면,<br>
-            {% autoescape false %}
-                {{ gijun | replace("|", "<br/>") | replace("@", "&nbsp;") | replace("#", "&ensp;") | replace("$", "&emsp;") }}
-            {% endautoescape %}
-            <br>
-            다음과 같습니다.
+            {% if cname != None %}
+                <div class="togglebtn">해결기준 확인하기</div>
+                <div id="gijunSection" class="hide">
+                    <b>{{ cname }}</b> 해결기준 중, 아래의 기준이 적합해 보입니다.<br>
+                    {% autoescape false %}
+                        {{ gijun | replace("|", "<br/>") | replace("@", "&nbsp;") | replace("#", "&ensp;") | replace("$", "&emsp;") }}
+                    {% endautoescape %}
+                    <br>
+                </div>
+            {% endif %}
+
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-3 col-sm-6">
+                        <div id="con1" class="progress green">
+                            <span class="progress-left">
+                                <span class="progress-bar"></span>
+                            </span>
+                            <span class="progress-right">
+                                <span class="progress-bar"></span>
+                            </span>
+                            <div id = "pro_id1" class="pro_cls1 progress-value">{{ model_res[0] }}%</div>
+                        </div>
+                        <div class="text-center">추가서류</div>
+                    </div>
+                    <div class="col-md-3 col-sm-6">
+                        <div id="con2" class="progress green">
+                            <span class="progress-left">
+                                <span class="progress-bar"></span>
+                            </span>
+                            <span class="progress-right">
+                                <span class="progress-bar"></span>
+                            </span>
+                            <div id = "pro_id2" class="pro_cls2 progress-value">{{ model_res[1] }}%</div>
+                        </div>
+                        <div class="text-center">이용자 협상</div>
+                    </div>
+                    <div class="col-md-3 col-sm-6">
+                        <div id="con3" class="progress green">
+                            <span class="progress-left">
+                                <span class="progress-bar"></span>
+                            </span>
+                            <span class="progress-right">
+                                <span class="progress-bar"></span>
+                            </span>
+                            <div id = "pro_id3" class="pro_cls3 progress-value">{{ model_res[2] }}%</div>
+                        </div>
+                        <div class="text-center">기관 협상</div>
+                    </div>
+                    <div class="col-md-3 col-sm-6">
+                        <div id="con4" class="progress green">
+                            <span class="progress-left">
+                                <span class="progress-bar"></span>
+                            </span>
+                            <span class="progress-right">
+                                <span class="progress-bar"></span>
+                            </span>
+                            <div id = "pro_id4" class="pro_cls4 progress-value">{{ model_res[3] }}%</div>
+                        </div>
+                        <div class="text-center">구제 신청서류</div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>
+<script src="{{ url_for('static', filename='js/jquery-3.4.1.min.js') }}"></script>
+<script>
+
+</script>

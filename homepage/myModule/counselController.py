@@ -93,6 +93,8 @@ class CounselController():
         temp = tokenizer.texts_to_sequences(tags)
         temp = pad_sequences(temp, padding='post', maxlen=maxlen)
         inputList = list()
+
+
         for i in range(len(temp)):
             if len(inputList) != 50:
                 inputList.append(temp[i][0])
@@ -103,10 +105,12 @@ class CounselController():
             if len(inputList) == 50:
                 break
         inputList = np.array(inputList, dtype='int32').reshape(1, -1)
-        con1 = addPaperModel.predict(inputList)
-        con2 = goojaeModel.predict(inputList)
-        con3 = jojungModel.predict(inputList)
-        con4 = negoableModel.predict(inputList)
+
+        con1 = int(str(addPaperModel.predict(inputList)[0][0])[2:4])
+        con2 = int(str(negoableModel.predict(inputList)[0][0])[2:4])
+        con3 = int(str(jojungModel.predict(inputList)[0][0])[2:4])
+        con4 = int(str(goojaeModel.predict(inputList)[0][0])[2:4])
+
         K.clear_session()
         model_res = [con1, con2, con3, con4]
         print(model_res)

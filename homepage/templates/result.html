@@ -32,14 +32,39 @@
 <script>
 $(document).ready(function () {
     newtext = $("#q").text();
-
     {% for tag in tags %}
-        console.log('{{ tag }}');
+       // console.log('{{ tag }}');
         settag = "<span class='tagspan'>{{ tag }}</span>";
         newtext = newtext.replace(/{{ tag }}/g, settag);
     {% endfor %}
-
     $('#q').html(newtext);
+
+    $(".togglebtn").click(function(){
+        if($("#gijunSection").hasClass('hide')) {
+            $("#gijunSection").removeClass('hide');
+            $("#gijunSection").addClass('show');
+            $(".togglebtn").html("해결기준 접기");
+            //$("#gijunSection").show();
+        } else {
+            $("#gijunSection").removeClass('show');
+            $("#gijunSection").addClass('hide');
+            $(".togglebtn").html("해결기준 확인하기");
+            //$("#gijunSection").hide();
+        }
+    })
+    for(var i = 1; i <= 4; i++){
+        what = $("#pro_id"+i).text().replace('%', '')
+        if(what < 30){
+            $("#con"+i).attr('class', 'progress red')
+        } else if(what >= 30 && what < 50){
+            $("#con"+i).attr('class', 'progress yellow2')
+        } else if(what >= 50 && what < 70){
+            $("#con"+i).attr('class', 'progress yellow')
+        } else {
+            $("#con"+i).attr('class', 'progress green')
+        }
+    }
+
 
     var scrollPosition = $("#a_section").offset().top;
 

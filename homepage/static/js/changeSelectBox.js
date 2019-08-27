@@ -112,7 +112,6 @@ $(document).ready(function () {
             trouble3: $('#Trouble3').val(),
             trouble4: $('#Trouble4').val(),
         }).done(function (data) {
-
             console.log(data[0]['category_name']);
 
             $('#show_gijuns').html("");

@@ -160,17 +160,10 @@ def getSimilarTags(text_tag, type):
 # 해당 해결기준과 각각의 빈도수 추출
 # item = 소분류, itemCode = 중분류
 def cmpGijun(similar_tag, item, itemcode):
-    print(similar_tag)
-    print(item)
-    print(itemcode)
-
     chk = counselingdao.countGijunBySmall(item)
-    print('chk',chk)
 
     if chk==():
-        print('중분류는', itemcode)
         chk2 = counselingdao.countGijunByMiddle(itemcode)
-        print('chk2', chk2)
         if chk2 == ():
             print('해당 해결기준이 존재하지 않습니다.')
 
@@ -178,17 +171,14 @@ def cmpGijun(similar_tag, item, itemcode):
 
     # 결과값이 있을때
     if chk != () or chk2 != ():
-        #res = chk2 if chk==() else res=chk
         if chk == ():
             res = chk2
         else:
             res = chk
-        print('res는', res)
         cid = res[0]['category_id']
         cname = res[0]['category_name']
-        #
+
         for type in res:
-            print('type', type)
             cnt = 0
             type_tag = getMorph(spellchecker(type['type_1']), 2)
             similar_type_tag = getSimilarTags(type_tag, 2)
@@ -199,7 +189,6 @@ def cmpGijun(similar_tag, item, itemcode):
             typedict[type['type_1']] = cnt
 
         return typedict, cid, cname
-
     else:
         return typedict, -1, None
 
@@ -227,12 +216,7 @@ def getGijun(sortdict, id):
     # 빈도수 1순위가 3개 이내일 때만 출력
     if len(maxlist) < 4:
         for _ in maxlist:
-            print('_ : ', _)
             gijunlist.append(counselingdao.getGijunList(_, id))
-            # cur.execute(
-            #     'select type_1, type_2, type_3, type_4, standard, bigo from solution_gijun where type_1 = %s and category_id = %s',
-            #     (_, id))
-            # gijunlist.append(cur.fetchall())
     else:
         print('해당 해결기준이 존재하지 않습니다.')
 
@@ -246,7 +230,6 @@ def showGijun(gijunlist):
     ans = ''
     for i, gijun in enumerate(gijunlist):
         for i2, _ in enumerate(gijun):
-            print(gijun)
             # type2가 없으면 type1, std 출력
             if _['type_2'] == '':
                 ans += _['type_1'] + ' → ' + _['standard'] + '|'
@@ -280,7 +263,6 @@ def showGijun(gijunlist):
                             type3.append(_['type_3'])
                             ans += '#- ' + _['type_3'] + '|'
 
-                        # print(_[3], _[4])
                         ans += '$- ' + _['type_4'] + ' → ' + _['standard'] + '|'
 
             # 비고 출력
@@ -302,7 +284,6 @@ def showGijun(gijunlist):
 
 # 실행함수
 def getSolution(ques):
-    print(ques)
     itemcode = ques['mid_cate']
     item = ques['small_cate']
     q = ques['question']
@@ -315,7 +296,6 @@ def getSolution(ques):
 
     # 태깅을 위한 해당 중분류 모범상담 태그 데이터 불러오기
     mid_id = counselingdao.getMobum(itemcode)
-    print(mid_id)
     mobums = mobum_tagging_data[mid_id[0]['id'] - 1]
     mobumLength = len(mobums)
 
@@ -330,9 +310,6 @@ def getSolution(ques):
 
     # 관련 해결기준 불러오기
     typedict, cid, cname = cmpGijun(similar_tag, item, itemcode)
-    print(typedict)
-    print(cid)
-    print(cname)
     if cid != -1:
         sortdict = sorted(typedict.items(), key=lambda k: k[1], reverse=True)
 
@@ -348,4 +325,3 @@ def getSolution(ques):
         return text_tag, -1, None
 
     return text_tag, solution, cname
-

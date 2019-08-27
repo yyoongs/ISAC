@@ -1,9 +1,8 @@
-from flask import Flask, render_template, request, redirect
+from flask import Flask, render_template, request
 from myModule.counselController import counselController
 from myModule.gijunController import gijunController
 from myModule.mobumController import mobumController
 from flask import send_file, current_app as app
-# from myModule.getSolutionController import getSolution
 
 app = Flask(__name__)
 
@@ -38,9 +37,10 @@ def writeCounsel():
         usado=finalResult[2]
         print(id, title, usado)
 
-        return render_template('result.html',  result=result, tags=tags, gijun=gijun, cname=cname,  mobumList=zip(id, title, usado))
+        return render_template('result.html',  result=result, tags=tags, gijun=gijun, cname=cname, model_res=model_res, mobumList=zip(id, title, usado))
 
 
+# 연관된 상담 보기
 @app.route('/mobumCounsel/<id>')
 def mobumCounsel(id):
     mobumResult = mobumController.getMobumContent(id)
@@ -64,31 +64,35 @@ def solution():
 def update_gijun():
     return gijunController.updateTrouble1()
 
+
 # 분쟁유형2 보여주기
 @app.route('/_update_trouble2')
 def update_trouble2():
     return gijunController.updateTrouble2()
+
 
 # 분쟁유형3 보여주기
 @app.route('/_update_trouble3')
 def update_trouble3():
     return gijunController.updateTrouble3()
 
+
 # 분쟁유형4 보여주기
 @app.route('/_update_trouble4')
 def update_trouble4():
     return gijunController.updateTrouble4()
 
+
 @app.route('/_show_gijun_table', methods=['GET'])
 def show_gijun_table():
-    print('ㅎㅇㅎㅇ2')
     if request.method=='GET':
-        print('ㅎㅇㅎㅇ')
         return gijunController.showGijunTable()
+
 
 @app.errorhandler(404)
 def page_not_found(e):
     return render_template('404.html'), 404
+
 
 @app.errorhandler(500)
 def Internal_server_error(e):
