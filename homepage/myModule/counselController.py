@@ -10,6 +10,7 @@ import json
 import os
 from myModule.getSolutionController import getSolution
 
+
 class CounselController():
     def __init__(self):
         pass

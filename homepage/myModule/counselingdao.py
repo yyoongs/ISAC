@@ -132,4 +132,3 @@ def getGijunList(type1, id):
 def getMobum(mname):
     sql = 'select id from mid_category where name = %s'
     return common_sql(1, sql, mname)
-    # cur.execute('select id from mid_category where name = %s', itemcode)

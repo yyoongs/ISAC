@@ -11,6 +11,7 @@ app = Flask(__name__)
 def index():
     return counselController.getBigcate()
 
+
 @app.route('/_update_midCate')
 def update_midCate():
     return counselController.updateMidcate()
@@ -23,6 +24,7 @@ def update_smallCate():
         mid = request.args.get('selected_mid', type=str)
         return counselController.updateSmallcate(big, mid)
 
+
 # 실시간 상담 처리
 @app.route('/result', methods = ['POST'])
 def writeCounsel():
@@ -30,12 +32,19 @@ def writeCounsel():
         result = counselController.writeCounsel()
         morphs = counselController.getMorphs()
         counselController.predictModel()
-        mobumID, mobumTitle, usado = mobumController.getMobum()
-        print(mobumID)
-        print(mobumTitle)
+        result1,result2vec, finalResult = mobumController.getMobum()
+        # print(result1)
+        # print(result2vec)
+        # print(finalResult)
+        id=finalResult[0]
+        title=finalResult[1]
+        usado=finalResult[2]
+        print(id, title, usado)
         # getSolution()
+        #
+        return render_template('result.html', result=result, morphs=morphs, mobumList=zip(id, title, usado))
+        # return render_template('mobumAct.html', result1=result1, result2vec=result2vec, finalResult=finalResult)
 
-        return render_template('result.html', result=result, morphs=morphs, mobumList=zip(mobumID, mobumTitle, usado ))
 
 @app.route('/mobumCounsel/<id>')
 def mobumCounsel(id):
@@ -48,6 +57,7 @@ def mobumCounsel(id):
 def relation():
     return render_template('relation.html')
 
+
 # 해결기준
 @app.route('/solution')
 def solution():
@@ -58,7 +68,6 @@ def solution():
 @app.route('/_update_trouble')
 def update_gijun():
     return gijunController.updateTrouble1()
-
 
 # 분쟁유형2 보여주기
 @app.route('/_update_trouble2')
@@ -87,6 +96,17 @@ def show_gijun_table():
         print('ㅎㅇㅎㅇ')
         return gijunController.showGijunTable()
 
+@app.route('/_get_mobum')
+def get_mobum():
+    print('ㅎㅇㅎㅇ2')
+    if request.method=='GET':
+        print('ㅎㅇㅎㅇ')
+        return gijunController.showGijunTable()
+
+
+@app.route('/graph1')
+def description():
+    return render_template('description.html')
 
 @app.errorhandler(404)
 def page_not_found(e):
@@ -97,7 +117,6 @@ def page_not_found(e):
 def Internal_server_error(e):
     # note that we set the 404 status explicitly
     return render_template('500.html'), 500
-
 
 
 if __name__ == '__main__':
