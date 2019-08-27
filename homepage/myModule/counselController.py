@@ -8,6 +8,12 @@ import pandas as pd
 import json
 import os
 from myModule.getSolutionController import getSolution
+from keras import optimizers
+import pickle
+import numpy as np
+from keras.preprocessing.sequence import pad_sequences
+maxlen = 50
+tokenizer = pickle.load(open('./static/tokenizer.pkl', 'rb'))
 
 
 class CounselController():
@@ -74,37 +80,36 @@ class CounselController():
 
 
     # 모델을 통한 예측
-    def predictModel(self):
-        big = request.form.get('SelectBigCate')
-        print(big)
-
-        addPaperModel = load_model(os.path.join(APP_STATIC, 'predictModel/'+big+'_add_paper.h5'))
-        addPaperModel.compile(optimizer='adam', loss='binary_crossentropy', metrics=['accuracy'])
-
-        goojaeModel = load_model(os.path.join(APP_STATIC, 'predictModel/' + big + '_goojae.h5'))
-        goojaeModel.compile(optimizer='adam', loss='binary_crossentropy', metrics=['accuracy'])
-
-        jojungModel = load_model(os.path.join(APP_STATIC, 'predictModel/'+big+'_jojung.h5'))
-        jojungModel.compile(optimizer='adam', loss='binary_crossentropy', metrics=['accuracy'])
-
-        negoableModel = load_model(os.path.join(APP_STATIC, 'predictModel/'+big+'_nego_able.h5'))
-        negoableModel.compile(optimizer='adam', loss='binary_crossentropy', metrics=['accuracy'])
-
-
-        with open(os.path.join(APP_STATIC, 'predictModel/tag_list.json')) as f:
-            List = json.load(f)
-        a = ['환불', '디조', '요금', 'as']
-        tt = pd.DataFrame([[1 if _ in a else 0 for _ in List[big]]])
-
-        print("추가서류 여부 예측")
-        print(addPaperModel.predict(tt))
-        print("구제 예측")
-        print(goojaeModel.predict(tt))
-        print("조정 예측")
-        print(jojungModel.predict(tt))
-        print("협상 예측")
-        print(negoableModel.predict(tt))
+    def predictModel(self, tags):
+        optimizer = optimizers.RMSprop(lr=0.001, rho=0.9, epsilon=None, decay=0.0)
+        addPaperModel = load_model(os.path.join(APP_STATIC, 'predictModel/_ultimate_add_paper.h5'))
+        addPaperModel.compile(optimizer=optimizer, loss='binary_crossentropy', metrics=['accuracy'])
+        goojaeModel = load_model(os.path.join(APP_STATIC, 'predictModel/_ultimate_goojae.h5'))
+        goojaeModel.compile(optimizer=optimizer, loss='binary_crossentropy', metrics=['accuracy'])
+        jojungModel = load_model(os.path.join(APP_STATIC, 'predictModel/_ultimate_jojung.h5'))
+        jojungModel.compile(optimizer=optimizer, loss='binary_crossentropy', metrics=['accuracy'])
+        negoableModel = load_model(os.path.join(APP_STATIC, 'predictModel/_ultimate_nego_able.h5'))
+        negoableModel.compile(optimizer=optimizer, loss='binary_crossentropy', metrics=['accuracy'])
+        temp = tokenizer.texts_to_sequences(tags)
+        temp = pad_sequences(temp, padding='post', maxlen=maxlen)
+        inputList = list()
+        for i in range(len(temp)):
+            if len(inputList) != 50:
+                inputList.append(temp[i][0])
+            else:
+                break
+        for i in range(50):
+            inputList.append(0)
+            if len(inputList) == 50:
+                break
+        inputList = np.array(inputList, dtype='int32').reshape(1, -1)
+        con1 = addPaperModel.predict(inputList)
+        con2 = goojaeModel.predict(inputList)
+        con3 = jojungModel.predict(inputList)
+        con4 = negoableModel.predict(inputList)
         K.clear_session()
-
+        model_res = [con1, con2, con3, con4]
+        print(model_res)
+        return model_res
 
 counselController = CounselController()

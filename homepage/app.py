@@ -2,9 +2,11 @@ from flask import Flask, render_template, request, redirect
 from myModule.counselController import counselController
 from myModule.gijunController import gijunController
 from myModule.mobumController import mobumController
+from flask import send_file, current_app as app
 # from myModule.getSolutionController import getSolution
 
 app = Flask(__name__)
+
 # 메인 페이지
 @app.route('/')
 def index():
@@ -29,7 +31,7 @@ def update_smallCate():
 def writeCounsel():
     if request.method == 'POST':
         result, tags, gijun, cname = counselController.writeCounsel()
-        counselController.predictModel()
+        model_res = counselController.predictModel(tags)
         result1,result2vec, finalResult = mobumController.getMobum()
         id=finalResult[0]
         title=finalResult[1]
@@ -45,10 +47,10 @@ def mobumCounsel(id):
     return render_template('mobumCounsel.html', result=mobumResult)
 
 
-# 관련상담조회
-@app.route('/relation')
-def relation():
-    return render_template('relation.html')
+# ISAC 소개
+@app.route('/show')
+def show_static_pdf():
+    return send_file('./static/Report.pdf')
 
 
 # 해결기준
@@ -77,19 +79,12 @@ def update_trouble3():
 def update_trouble4():
     return gijunController.updateTrouble4()
 
-# @app.route('/_show_gijun_table')
-# def show_gijun_table():
-#     return gijunController.showGijunTable()
-
-
 @app.route('/_show_gijun_table', methods=['GET'])
 def show_gijun_table():
     print('ㅎㅇㅎㅇ2')
     if request.method=='GET':
         print('ㅎㅇㅎㅇ')
         return gijunController.showGijunTable()
-
-
 
 @app.errorhandler(404)
 def page_not_found(e):
