@@ -10,10 +10,8 @@ $(document).ready(function () {
         $.getJSON('/_update_midCate', {
             selected_big: $('#SelectBigCate').val()
         }).done(function (data) {
-            // console.log(data);
             $('#SelectSmallCate').html('<option value="">전체</option>');
             $('#SelectMidCate').html(data.html_string_selected);
-            console.log('중분류 떠라');
         })
     });
 
@@ -22,8 +20,6 @@ $(document).ready(function () {
             selected_big: $('#SelectBigCate').val(),
             selected_mid: $('#SelectMidCate').val(),
         }).done(function (data) {
-            console.log(data);
-            // console.log(data);
             $('#SelectSmallCate').html(data.html_string_selected);
         })
     });

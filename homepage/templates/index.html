@@ -1,18 +1,14 @@
 <html>
 <head>
-    <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <!-- Bootstrap CSS -->
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
-    {#    <script src="https://kit.fontawesome.com/16d5691813.js"></script>#}
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css"
           integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
 
     <title>ISAC</title>
-
 </head>
 
 <body>
@@ -32,7 +28,6 @@
 </div>
 
 
-<!-- Modal -->
 <div class="modal fade" id="counselModal" tabindex="-1" role="dialog" aria-labelledby="counselModalLabel"
      aria-hidden="true">
     <div class="modal-dialog" role="document">
@@ -77,15 +72,6 @@
                                 <option value="">전체</option>
                             </select>
                         </div>
-                        {#                        <div class="form-group col-md-6">#}
-                        {#                            <label for="exampleFormControlSelect2">상황</label>#}
-                        {#                            <select class="form-control" id="SelectSituation" name="SelectSituation">#}
-                        {#                                <option selected>----</option>#}
-                        {#                                <option value="고장">고장</option>#}
-                        {#                                <option value="환불">환불</option>#}
-                        {#                                <option value="AS">A/S</option>#}
-                        {#                            </select>#}
-                        {#                        </div>#}
                     </div>
                     <div class="form-row">
                         <div class="form-group col">
@@ -100,14 +86,12 @@
                         <button type="submit" class="btn btn-dark" id="submitCounsel">제출하기</button>
                         <button type="button" class="btn btn-light" data-dismiss="modal">닫기</button>
                     </div>
-
                 </form>
             </div>
         </div>
     </div>
     <div id="mask"></div>
     <div id="spinner"></div>
-
 </div>
 
 <script src="{{ url_for('static', filename='js/jquery-3.4.1.min.js') }}"></script>

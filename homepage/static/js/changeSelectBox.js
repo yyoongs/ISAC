@@ -105,23 +105,17 @@ $(document).ready(function () {
 
     $('.solutionBtn').on('click', '#show_gijun_table', function (e) {
         e.preventDefault();
-        console.log('해결기준 테이블 보여주자');
         $.getJSON('/_show_gijun_table', {
             upjong: $('#Upjong').val(),
             trouble1: $('#Trouble1').val(),
             trouble2: $('#Trouble2').val(),
             trouble3: $('#Trouble3').val(),
             trouble4: $('#Trouble4').val(),
-            // format:json,
         }).done(function (data) {
 
             console.log(data[0]['category_name']);
-            // 테이블 부분 깨끗하게
+
             $('#show_gijuns').html("");
-
-            // var makeIntro = $("<div></div>");
-            // $("#show_gijuns").append("<div class=\"row\"><div class=\"col-sm-4\">업종 : " + data[0]['category_name'] + "</div><div class=\"col-sm-8\">분쟁유형1 : " + data[0]['type_1'] + "</div></div>");
-
 
             // 테이블 보여주기
             var makeTable = $("<table class='table table-bordered table-hover' style='width:100% margin-top:10px;'><thead></thead><tbody></tbody>");

@@ -1,11 +1,10 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, redirect
 from myModule.counselController import counselController
 from myModule.gijunController import gijunController
 from myModule.mobumController import mobumController
-from myModule.getSolutionController import getSolution
+# from myModule.getSolutionController import getSolution
+
 app = Flask(__name__)
-
-
 # 메인 페이지
 @app.route('/')
 def index():
@@ -29,21 +28,15 @@ def update_smallCate():
 @app.route('/result', methods = ['POST'])
 def writeCounsel():
     if request.method == 'POST':
-        result = counselController.writeCounsel()
-        morphs = counselController.getMorphs()
+        result, tags, gijun, cname = counselController.writeCounsel()
         counselController.predictModel()
         result1,result2vec, finalResult = mobumController.getMobum()
-        # print(result1)
-        # print(result2vec)
-        # print(finalResult)
         id=finalResult[0]
         title=finalResult[1]
         usado=finalResult[2]
         print(id, title, usado)
-        # getSolution()
-        #
-        return render_template('result.html', result=result, morphs=morphs, mobumList=zip(id, title, usado))
-        # return render_template('mobumAct.html', result1=result1, result2vec=result2vec, finalResult=finalResult)
+
+        return render_template('result.html',  result=result, tags=tags, gijun=gijun, cname=cname,  mobumList=zip(id, title, usado))
 
 
 @app.route('/mobumCounsel/<id>')
@@ -96,34 +89,16 @@ def show_gijun_table():
         print('ㅎㅇㅎㅇ')
         return gijunController.showGijunTable()
 
-@app.route('/_get_mobum')
-def get_mobum():
-    print('ㅎㅇㅎㅇ2')
-    if request.method=='GET':
-        print('ㅎㅇㅎㅇ')
-        return gijunController.showGijunTable()
 
-
-@app.route('/graph1')
-def description():
-    return render_template('description.html')
 
 @app.errorhandler(404)
 def page_not_found(e):
-    # note that we set the 404 status explicitly
     return render_template('404.html'), 404
 
 @app.errorhandler(500)
 def Internal_server_error(e):
-    # note that we set the 404 status explicitly
     return render_template('500.html'), 500
 
 
 if __name__ == '__main__':
     app.run()
-
-# GET /_update_midCate?selected_class=기계류기타물품
-# GET /_update_smallCate?selected_big=기계류기타물품&selected_mid=기계 405 -
-#
-# GET /_update_gijun?selected_class=고시원운영업 HTTP/1.1"
-# GET /_show_gijun_table?selected_class=고시원운영업&selected_entry=2)+소비자의+계약해제+및+해지
