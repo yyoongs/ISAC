@@ -114,6 +114,7 @@ body {
     width : 65px;
 
 }
+
 /***** 메뉴 끝 *****/
 
 /***** 공통 *****/
@@ -159,20 +160,23 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 #mask {
-    position: absolute;
-    left: 0;
-    top: 0;
-    z-index: 100;
-    background-color: #000;
-    display: none;
+	  position:absolute;
+	  left:0;
+	  top:0;
+	  z-index:0;
+      background-color: #000000;
+	  display:none;
+	}
+
+#spinner {
+    z-index : 100;
 }
 
-#loadingImg {
-    position: absolute;
-    left: 45%;
-    top: 50%;
-    z-index: 120;
-}
+.tagspan {
+        color : #004085;
+        font-weight: bold;
+    }
+
 
 /*#counselModal {*/
 /*z-index:100;*/
@@ -412,7 +416,9 @@ textarea.parsley-error {
 .realTime {
     margin-right: 8px;
 }
-
+#aTime {
+    color : #b00404;
+}
 /***** result.html 끝 *****/
 
 /**** 404 에러 핸들링 ****/
@@ -572,3 +578,307 @@ nav > div a.nav-item.nav-link:focus
     transition:background 0.20s linear;
 }
 /***** 그래프 끝 *****/
+
+
+/**** Loading 페이지 ****/
+@import url("https://fonts.googleapis.com/css?family=Muli");
+*,
+*:before,
+*:after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+.container2 {
+  position: absolute;
+  width: 17rem;
+  height: 10rem;
+  left: 50%;
+  top: 50%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+}
+
+.text {
+  color: white;
+  font-size: 6rem;
+  font-weight: 900;
+  display: inline-block;
+  position: absolute;
+  bottom: 0;
+  z-index: 100;
+  -webkit-animation: text 1050ms ease-in infinite;
+          animation: text 1050ms ease-in infinite;
+  -webkit-transform: translatez(0);
+          transform: translatez(0);
+}
+.text-w {
+  left: 0rem;
+  -webkit-transform: translate3d(0, -4rem, 0);
+          transform: translate3d(0, -4rem, 0);
+  -webkit-animation: text-w 1050ms ease-in infinite;
+          animation: text-w 1050ms ease-in infinite;
+}
+.text-a {
+  left: 3rem;
+  -webkit-animation-delay: 150ms;
+          animation-delay: 150ms;
+}
+.text-v {
+  left: 7rem;
+  -webkit-animation-delay: 230ms;
+          animation-delay: 230ms;
+}
+.text-e {
+  left: 11rem;
+  -webkit-animation-delay: 310ms;
+          animation-delay: 310ms;
+}
+
+.coast {
+  position: absolute;
+  left: 1.3rem;
+  bottom: 1.7rem;
+  width: 6.2rem;
+  height: 2.2rem;
+  display: inline-block;
+  -webkit-animation: coast 2100ms linear infinite;
+          animation: coast 2100ms linear infinite;
+  -webkit-transform: translateZ(0);
+          transform: translateZ(0);
+}
+
+.wave-rel-wrap {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  -webkit-perspective: 3rem;
+          perspective: 3rem;
+  -webkit-perspective-origin: 0%, 50%;
+          perspective-origin: 0%, 50%;
+}
+
+.wave {
+  position: absolute;
+  width: 6.2rem;
+  height: 2.2rem;
+  border-radius: 1.1rem;
+  background: -webkit-radial-gradient(center ellipse, #74f1fc 0%, #32e6ff 73%, #15c7fa 100%);
+  background: radial-gradient(ellipse at center, #74f1fc 0%, #32e6ff 73%, #15c7fa 100%);
+  display: inline-block;
+  -webkit-animation: wave 2100ms linear infinite;
+          animation: wave 2100ms linear infinite;
+  will-change: width;
+  -webkit-transform: translateZ(0) scale(0);
+          transform: translateZ(0) scale(0);
+}
+
+.delay {
+  -webkit-animation-delay: 1050ms;
+          animation-delay: 1050ms;
+}
+
+#spinner {
+    z-index : 100;
+}
+@-webkit-keyframes text {
+  0% {
+    -webkit-transform: translate3d(0, 0, 0);
+            transform: translate3d(0, 0, 0);
+  }
+  30% {
+    -webkit-transform: translate3d(0, 0, 0);
+            transform: translate3d(0, 0, 0);
+  }
+  45% {
+    -webkit-transform: translate3d(0, -4rem, 0);
+            transform: translate3d(0, -4rem, 0);
+  }
+  100% {
+    -webkit-transform: translate3d(0, 0, 0);
+            transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes text {
+  0% {
+    -webkit-transform: translate3d(0, 0, 0);
+            transform: translate3d(0, 0, 0);
+  }
+  30% {
+    -webkit-transform: translate3d(0, 0, 0);
+            transform: translate3d(0, 0, 0);
+  }
+  45% {
+    -webkit-transform: translate3d(0, -4rem, 0);
+            transform: translate3d(0, -4rem, 0);
+  }
+  100% {
+    -webkit-transform: translate3d(0, 0, 0);
+            transform: translate3d(0, 0, 0);
+  }
+}
+@-webkit-keyframes text-w {
+  0% {
+    -webkit-transform: translate3d(0, -4rem, 0);
+            transform: translate3d(0, -4rem, 0);
+  }
+  38% {
+    -webkit-transform: translate3d(0, -4rem, 0);
+            transform: translate3d(0, -4rem, 0);
+  }
+  69% {
+    -webkit-transform: translate3d(0, 0, 0);
+            transform: translate3d(0, 0, 0);
+  }
+  100% {
+    -webkit-transform: translate3d(0, -4rem, 0);
+            transform: translate3d(0, -4rem, 0);
+  }
+}
+@keyframes text-w {
+  0% {
+    -webkit-transform: translate3d(0, -4rem, 0);
+            transform: translate3d(0, -4rem, 0);
+  }
+  38% {
+    -webkit-transform: translate3d(0, -4rem, 0);
+            transform: translate3d(0, -4rem, 0);
+  }
+  69% {
+    -webkit-transform: translate3d(0, 0, 0);
+            transform: translate3d(0, 0, 0);
+  }
+  100% {
+    -webkit-transform: translate3d(0, -4rem, 0);
+            transform: translate3d(0, -4rem, 0);
+  }
+}
+@-webkit-keyframes coast {
+  0% {
+    -webkit-transform: translate3d(0, 0, 0);
+            transform: translate3d(0, 0, 0);
+  }
+  23% {
+    -webkit-transform: translate3d(0, 0, 0);
+            transform: translate3d(0, 0, 0);
+  }
+  50% {
+    -webkit-transform: translate3d(16rem, 0, 0);
+            transform: translate3d(16rem, 0, 0);
+  }
+  100% {
+    -webkit-transform: translate3d(16rem, 0, 0);
+            transform: translate3d(16rem, 0, 0);
+  }
+}
+@keyframes coast {
+  0% {
+    -webkit-transform: translate3d(0, 0, 0);
+            transform: translate3d(0, 0, 0);
+  }
+  23% {
+    -webkit-transform: translate3d(0, 0, 0);
+            transform: translate3d(0, 0, 0);
+  }
+  50% {
+    -webkit-transform: translate3d(16rem, 0, 0);
+            transform: translate3d(16rem, 0, 0);
+  }
+  100% {
+    -webkit-transform: translate3d(16rem, 0, 0);
+            transform: translate3d(16rem, 0, 0);
+  }
+}
+@-webkit-keyframes wave {
+  0% {
+    -webkit-transform: scale(0);
+            transform: scale(0);
+    width: 2.2rem;
+  }
+  10% {
+    -webkit-transform: scale(1);
+            transform: scale(1);
+  }
+  23% {
+    width: 2.2rem;
+  }
+  32% {
+    width: 6.1rem;
+  }
+  42% {
+    width: 5rem;
+    -webkit-transform: rotateY(0deg) scale(1, 1);
+            transform: rotateY(0deg) scale(1, 1);
+  }
+  51% {
+    -webkit-transform: rotateY(90deg) scale(0.6, 0.2);
+            transform: rotateY(90deg) scale(0.6, 0.2);
+  }
+  52% {
+    -webkit-transform: rotateY(90deg) scale(0);
+            transform: rotateY(90deg) scale(0);
+  }
+  100% {
+    -webkit-transform: rotateY(90deg) scale(0);
+            transform: rotateY(90deg) scale(0);
+  }
+}
+@keyframes wave {
+  0% {
+    -webkit-transform: scale(0);
+            transform: scale(0);
+    width: 2.2rem;
+  }
+  10% {
+    -webkit-transform: scale(1);
+            transform: scale(1);
+  }
+  23% {
+    width: 2.2rem;
+  }
+  32% {
+    width: 6.1rem;
+  }
+  42% {
+    width: 5rem;
+    -webkit-transform: rotateY(0deg) scale(1, 1);
+            transform: rotateY(0deg) scale(1, 1);
+  }
+  51% {
+    -webkit-transform: rotateY(90deg) scale(0.6, 0.2);
+            transform: rotateY(90deg) scale(0.6, 0.2);
+  }
+  52% {
+    -webkit-transform: rotateY(90deg) scale(0);
+            transform: rotateY(90deg) scale(0);
+  }
+  100% {
+    -webkit-transform: rotateY(90deg) scale(0);
+            transform: rotateY(90deg) scale(0);
+  }
+}
+/**** Loading 페이지 끝 ****/
+
+/**** 해결기준 solution.html ****/
+.bs-callout {
+    padding: 10px 10px 10px 10px;
+    margin: 20px 0;
+    border-left: 5px solid #345D66;
+    border-radius: 0;
+}
+.bs-callout-solution {
+    border-left-color: #345D66;
+}
+
+.bs-callout h4 {
+    margin-top: 0;
+    margin-bottom: 5px;
+    color: #1b809e;
+}
+
+#solutionD {
+    margin : 0px;
+}
+/**** 해결기준 solution.html 끝 ****/

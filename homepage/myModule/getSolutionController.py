@@ -134,7 +134,7 @@ def getTags(morph_list, mobums, mobumLength):
 
 
 # 태그와 유사한 단어 묶음의 태그 생성
-def getSimilarTags(text_tag):
+def getSimilarTags(text_tag, type):
     similar_tag = []
     exist = []
     for tag in text_tag:
@@ -142,7 +142,11 @@ def getSimilarTags(text_tag):
         exist.append(tag)
 
         try:
-            tmp = model.wv.most_similar(tag)[0:4]
+            if type == 1:
+                tmp = model.wv.most_similar(tag)[0:3]
+            else:
+                tmp = model.wv.most_similar(tag)[0:2]
+
             for _ in tmp:
                 if _[0] not in exist:
                     similar_tag.append(_[0])
@@ -174,33 +178,36 @@ def cmpGijun(similar_tag, item, itemcode):
 
     # 결과값이 있을때
     if chk != () or chk2 != ():
-        res = chk2 if chk==() else chk
-        # if chk == ():
-        #     res = chk2
-        # else:
-        #     res = chk
+        #res = chk2 if chk==() else res=chk
+        if chk == ():
+            res = chk2
+        else:
+            res = chk
         print('res는', res)
         cid = res[0]['category_id']
+        cname = res[0]['category_name']
         #
         for type in res:
             print('type', type)
             cnt = 0
             type_tag = getMorph(spellchecker(type['type_1']), 2)
+            similar_type_tag = getSimilarTags(type_tag, 2)
 
             for _ in similar_tag:
-                if _ in type_tag:
+                if _ in similar_type_tag:
                     cnt += 1
             typedict[type['type_1']] = cnt
 
-        return typedict, cid
+        return typedict, cid, cname
 
     else:
-        return typedict, -1
+        return typedict, -1, None
 
 
 # 선택된 해결기준 상세내용 불러오기
 def getGijun(sortdict, id):
     max = -1
+    max2 = 0
     maxlist = []
     gijunlist = []
     print(sortdict, id)
@@ -208,16 +215,18 @@ def getGijun(sortdict, id):
         if max < _[1]:
             max = _[1]
 
-    for _ in sortdict:
+    for idx,_ in enumerate(sortdict):
         if _[1] == max:
-            print(_)
-            print(_[0])
             maxlist.append(_[0])
+        elif _[1] != max and _[1] != 0 and idx == 1:
+            max2 = _[1]
+            maxlist.append(_[0])
+        elif _[1] == max2 and idx == 2:
+            del(maxlist[-1])
 
     # 빈도수 1순위가 3개 이내일 때만 출력
     if len(maxlist) < 4:
         for _ in maxlist:
-            print('gijunList는 ',gijunlist)
             print('_ : ', _)
             gijunlist.append(counselingdao.getGijunList(_, id))
             # cur.execute(
@@ -240,39 +249,39 @@ def showGijun(gijunlist):
             print(gijun)
             # type2가 없으면 type1, std 출력
             if _['type_2'] == '':
-                ans += _['type_1'] + ' → ' + _['standard'] + '\n'
+                ans += _['type_1'] + ' → ' + _['standard'] + '|'
                 type1.append(_['type_1'])
 
             # type2가 있으면
             else:
                 if _['type_1'] not in type1:
                     type1.append(_['type_1'])
-                    ans += _['type_1'] + '\n'
+                    ans += _['type_1'] + '|'
 
                 # type3이 없으면 type2, std 출력
                 if _['type_3'] == '':
-                    ans += '   ' + _['type_2'] + ' → ' + _['standard'] + '\n'
+                    ans += '@- ' + _['type_2'] + ' → ' + _['standard'] + '|'
                     type2.append(_['type_2'])
 
                 # type3가 있으면
                 else:
                     if _['type_2'] not in type2:
                         type2.append(_['type_2'])
-                        ans += _['type_2'] + '\n'
+                        ans += '@- ' + _['type_2'] + '|'
 
                     # type4가 없으면 type3, std 출력
                     if _['type_4'] == '':
-                        ans += '   ' + _['type_3'] + ' → ' + _['standard'] + '\n'
+                        ans += '#- ' + _['type_3'] + ' → ' + _['standard'] + '|'
                         type3.append(_['type_3'])
 
                     # type4가 있으면
                     else:
                         if _['type_3'] not in type3:
                             type3.append(_['type_3'])
-                            ans += _['type_3'] + '\n'
+                            ans += '#- ' + _['type_3'] + '|'
 
                         # print(_[3], _[4])
-                        ans += '   ' + _['type_4'] + ' → ' + _['standard'] + '\n'
+                        ans += '$- ' + _['type_4'] + ' → ' + _['standard'] + '|'
 
             # 비고 출력
             if _['bigo'] != '':
@@ -280,15 +289,15 @@ def showGijun(gijunlist):
                     bigo.append(_['bigo'])
 
                     if len(bigo) >= 2:
-                        ans += '\n' + '비고 : ' + bigo[-2] + '\n'
+                        ans += '|' + '비고 : ' + bigo[-2] + '|'
 
                 if i == len(gijunlist) - 1 and i2 == len(gijun) - 1:
-                    ans += '\n' + '비고 : ' + bigo[-1]
+                    ans += '|' + '비고 : ' + bigo[-1]
 
             if i2 == len(gijun) - 1:
-                ans += '\n'
-    # print(ans)
-    return print(ans)
+                ans += '|'
+
+    return ans
 
 
 # 실행함수
@@ -317,12 +326,13 @@ def getSolution(ques):
     text_tag = getTags(morph_list, mobums, mobumLength)
 
     # 해결기준과의 매칭을 위한 태깅 데이터의 유사단어 갖고오기
-    similar_tag = getSimilarTags(text_tag)
+    similar_tag = getSimilarTags(text_tag, 1)
 
     # 관련 해결기준 불러오기
-    typedict, cid = cmpGijun(similar_tag, item, itemcode)
+    typedict, cid, cname = cmpGijun(similar_tag, item, itemcode)
     print(typedict)
     print(cid)
+    print(cname)
     if cid != -1:
         sortdict = sorted(typedict.items(), key=lambda k: k[1], reverse=True)
 
@@ -333,9 +343,9 @@ def getSolution(ques):
             # 내용 뿌려주기
             solution = showGijun(gijunlist)
         else:
-            return -1
+            return text_tag, -1, None
     else:
-        return -1
+        return text_tag, -1, None
 
-    # print(solution)
-    return solution
+    return text_tag, solution, cname
+

@@ -18,7 +18,8 @@ $(document).ready(function () {
             searchBtn.remove();
 
             $('#Trouble1').html(data.html_string_selected);
-        })
+        });
+        $('#show_gijuns').empty();
     });
 
 
@@ -45,7 +46,8 @@ $(document).ready(function () {
 
                 searchBtn.remove();
             }
-        })
+        });
+        $('#show_gijuns').empty();
     });
 
     // 분쟁유형2 별로 분쟁유형3 보여주기
@@ -72,7 +74,8 @@ $(document).ready(function () {
 
                 searchBtn.remove();
             }
-        })
+        });
+        $('#show_gijuns').empty();
     });
 
     // 분쟁유형3 별로 분쟁유형4 보여주기
@@ -96,8 +99,8 @@ $(document).ready(function () {
                 inputTrouble4.show();
                 $("#solutionBtn4").append($(searchBtn)).show();
             }
-
-        })
+        });
+        $('#show_gijuns').empty();
     });
 
     $('.solutionBtn').on('click', '#show_gijun_table', function (e) {
@@ -116,15 +119,15 @@ $(document).ready(function () {
             // 테이블 부분 깨끗하게
             $('#show_gijuns').html("");
 
-            var makeIntro = $("<div></div>");
-            $("#show_gijuns").append("<div class=\"row\"><div class=\"col-sm-4\">업종 : " + data[0]['category_name'] + "</div><div class=\"col-sm-8\">분쟁유형1 : " + data[0]['type_1'] + "</div></div>");
+            // var makeIntro = $("<div></div>");
+            // $("#show_gijuns").append("<div class=\"row\"><div class=\"col-sm-4\">업종 : " + data[0]['category_name'] + "</div><div class=\"col-sm-8\">분쟁유형1 : " + data[0]['type_1'] + "</div></div>");
 
 
             // 테이블 보여주기
             var makeTable = $("<table class='table table-bordered table-hover' style='width:100% margin-top:10px;'><thead></thead><tbody></tbody>");
             $("#show_gijuns").append($(makeTable));
 
-            $(makeTable).find("thead").append("<th style='width: 45%' class='text-center'>해결기준</th><th style='width: 55%' class='text-center'>비고</th>");
+            $(makeTable).find("thead").append("<th style='width: 37%' class='text-center'>해결기준</th><th style='width: 63%' class='text-center'>비고</th>");
 
             $.each(data, function (key, val) {
                 var str = '<tr>'

@@ -8,21 +8,39 @@ function wrapWindowByMask() {
 
     //애니메이션 효과 - 일단 1초동안 까맣게 됐다가 80% 불투명도로 간다.
     //$('#mask').fadeIn(1000);
-    $('#mask').fadeTo("slow", 0.6);
+    $('#mask').fadeTo("slow", 0.8);
 }
 
 $(function () {
     $('#counselForm').parsley().on('form:submit', function () {
         $.ajax({
             beforeSend: function () {
-                var loading=$("<img alt='loading' id='loadingIMG' src='/static/img/spinner3.gif'>");
+                //var loading=$("<img alt='loading' id='loadingIMG' src='/static/img/spinner3.gif'>");
 
-                $("#spinner").append($(loading));
+                var loading = "<div class=\"container2\">" +
+                                "<div class=\"coast\">" +
+                                    "<div class=\"wave-rel-wrap\">" +
+                                        "<div class=\"wave\"></div>" +
+                                    "</div>" +
+                                "</div>" +
+                                "<div class=\"coast delay\">" +
+                                    "<div class=\"wave-rel-wrap\">" +
+                                        "<div class=\"wave delay\"></div>" +
+                                    "</div>" +
+                                "</div>" +
+                                "<div class=\"text text-w\">I</div>" +
+                                "<div class=\"text text-a\">S</div>" +
+                                "<div class=\"text text-v\">A</div>" +
+                                "<div class=\"text text-e\">C</div>" +
+                            "</div>";
+
+                $("#spinner").html(loading);
+                //$("#spinner").append($(loading));
                 console.log('img 삽입 완료');
 
                 console.log('준비');
-                loading.show();
-                $("#loadingImg").show();
+                //loading.show();
+                //$("#loadingImg").show();
                 console.log("보여줌");
                 wrapWindowByMask();
             },

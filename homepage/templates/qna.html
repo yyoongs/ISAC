@@ -7,17 +7,24 @@
                 {#                            <div class="col-sm-4">중분류 : {{ result.mid_cate }}</div>#}
                 <div class="col-sm-6">작성일 : {{ result.question_date|safe }}</div>
             </div>
-            <div class="contents">
+            <div id="q" class="contents">
                 {{ result.question }}
             </div>
+        {% endfor %}
     </div>
     <hr>
 
     <div id="a_section">
-        <div class="title"><b class="realTime">A</b>답변</div>
-        <div class="contents">
-            {{ result.answer|safe }}
-        {% endfor %}
+
+        <div class="title"><b class="realTime" id="aTime">A</b>답변</div>
+
+        <div id = "a" class="contents">
+            <b>{{ cname }}</b> 해결기준에 따르면,<br>
+            {% autoescape false %}
+                {{ gijun | replace("|", "<br/>") | replace("@", "&nbsp;") | replace("#", "&ensp;") | replace("$", "&emsp;") }}
+            {% endautoescape %}
+            <br>
+            다음과 같습니다.
         </div>
     </div>
 </div>

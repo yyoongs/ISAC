@@ -15,7 +15,7 @@
     <h2>실시간 상담</h2>
     <div class="row">
         <div class="col-lg-8">
-            {% if result, morphs %}
+            {% if result %}
                 {% include 'qna.html' %}
             {% endif %}
         </div>
@@ -29,5 +29,26 @@
 
 <script src="{{ url_for('static', filename='js/jquery-3.4.1.min.js') }}"></script>
 <script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
+<script>
+$(document).ready(function () {
+    newtext = $("#q").text();
+
+    {% for tag in tags %}
+        console.log('{{ tag }}');
+        settag = "<span class='tagspan'>{{ tag }}</span>";
+        newtext = newtext.replace(/{{ tag }}/g, settag);
+    {% endfor %}
+
+    $('#q').html(newtext);
+
+    var scrollPosition = $("#a_section").offset().top;
+
+    $("body").animate({
+        scrollTop: scrollPosition
+    }, 500);
+
+});
+
+</script>
 </body>
 </html>

@@ -112,12 +112,12 @@ def getStandardBigo(cname, t1, t2='', t3='', t4=''):
 
 # 들어온 소분류로 태깅된 단어 빈도수 체크
 def countGijunBySmall(sname):
-    sql = 'select type_1, b.category_id from itemlist as a join solution_gijun as b on a.category_id = b.category_id where a.name = %s'
+    sql = 'select type_1, b.category_id, c.category_name from itemlist as a join solution_gijun as b on a.category_id = b.category_id join solution_category as c on b.category_id = c.id where a.name = %s'
     return common_sql(1, sql, sname)
 
 # 들어온 중분류로 태깅된 단어 빈도수 체크
 def countGijunByMiddle(mname):
-    sql = 'select type_1, b.category_id from itemlist as a join solution_gijun as b on a.category_id = b.category_id where a.name = %s'
+    sql = 'select type_1, b.category_id, c.category_name from itemlist as a join solution_gijun as b on a.category_id = b.category_id join solution_category as c on b.category_id = c.id where a.name = %s'
     return common_sql(1, sql, mname)
 
 def getGijunList(type1, id):

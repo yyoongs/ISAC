@@ -132,14 +132,26 @@ class word2hybrid():
                 idx += 1
                 continue
             elif similarity[0][argsort[0][idx]] < 0.35:
+                #                 print('유사도가 35%이하로 너무 낮아 더이상 뽑을 수 없습니다')
                 break
             elif n == top:
                 break
             else:
+                #                 print(f'제목 : {self.title[int(argsort[0][idx])-1]} index : { int(argsort[0][idx])-1 } 유사도 : {(ssim[0][argsort[0][idx]]*100).round(2)}%')
                 sum_index_list.append(argsort[0][idx])
-                sum_title_list.append(self.title[int(argsort[0][idx]) - 1])
-                sum_similar_list.append((similarity[0][argsort[0][idx]] * 100).round(2))
-                sum_recp_list = list(map(lambda x: self.data_recp_num[x], list(map(lambda x: x - 1, sum_index_list))))
+
+                if len(self.title[int(argsort[0][idx]) - 1]) > 24:
+                    sum_title_list.append(self.title[int(argsort[0][idx]) - 1][:21] + '…')
+                else:
+                    sum_title_list.append(self.title[int(argsort[0][idx]) - 1])
+
+                if similarity[0][argsort[0][idx]] > 1:
+                    sum_similar_list.append(round(100, 2))
+                else:
+                    sum_similar_list.append((similarity[0][argsort[0][idx]] * 100).round(2))
+
+                sum_recp_list = list(
+                    map(lambda x: self.data_recp_num[x], list(map(lambda x: x - 1, sum_index_list))))
                 idx += 1
                 n += 1
         result_result.append(sum_recp_list)
@@ -262,7 +274,4 @@ class word2hybrid_update(word2hybrid):
         return self.weight_comp(input_text, update=sims_list[3], update_weight=update_weight, weight=weight, top=top)
 
 
-
-
 doc2vec_model = word2hybrid_update(title, doc, data, result, pkl_model_load)
-

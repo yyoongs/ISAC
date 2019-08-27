@@ -1,7 +1,6 @@
 from flask import request, jsonify, render_template
 from datetime import datetime
 from myModule import counselingdao
-from myModule.morpy import getMorph
 from settings import APP_STATIC
 from keras import backend as K
 from keras.models import load_model
@@ -56,22 +55,22 @@ class CounselController():
         counsel = {'title': title, 'big_cate': big, 'mid_cate': mid, 'small_cate': small,
                    'question_date': question_date,
                    'question': question}
-        gijun = getSolution(counsel)
-        counsel['answer']=gijun
+        tags, gijun, cname = getSolution(counsel)
+        print(tags)
+        if gijun == -1:
+            gijun = '고객님이 질문하신 내용에 대한 적당한 해결기준을 찾지 못하였습니다.'
+        # counsel['tags'] = tags
+        # counsel['answer'] = gijun
         counselingdao.setCounseling(counsel)
         result = counselingdao.getCounseling(question_date)
+        print('gijun은 ', gijun)
+
+        # counselingdao.setTagsresult[0]['id']
 
         # 들어온 상담에 대해서 결과값 출력
         # gijun = getSolution(counsel)
 
-        return result
-
-
-    # 태깅
-    def getMorphs(self):
-        title = request.form.get('inputTitle')
-        question = request.form.get('inputContent')
-        return getMorph(title+question)
+        return result, tags, gijun, cname
 
 
     # 모델을 통한 예측
