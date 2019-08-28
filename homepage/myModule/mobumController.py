@@ -9,7 +9,6 @@ class MobumController():
 
     def getMobum(self):
         title = request.form.get('inputTitle')
-        print(type(title))
         result1,result2vec, finalResult = doc2vec_model.doc2vec_weight_comp(title)
         return result1,result2vec, finalResult
 
