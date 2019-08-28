@@ -330,7 +330,9 @@ textarea.parsley-error {
     margin-top: 20px;
     line-height: 1.7;
 }
-
+#answerText {
+    margin-top:20px;
+}
 /***** qna.html 끝 *****/
 
 /***** mobum.html *****/

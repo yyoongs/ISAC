@@ -30,14 +30,14 @@ def update_smallCate():
 def writeCounsel():
     if request.method == 'POST':
         result, tags, gijun, cname = counselController.writeCounsel()
-        model_res = counselController.predictModel(tags)
+        model_res, text = counselController.predictModel(tags, cname)
         result1,result2vec, finalResult = mobumController.getMobum()
         id=finalResult[0]
         title=finalResult[1]
         usado=finalResult[2]
         print(id, title, usado)
 
-        return render_template('result.html',  result=result, tags=tags, gijun=gijun, cname=cname, model_res=model_res, mobumList=zip(id, title, usado))
+        return render_template('result.html',  result=result, tags=tags, gijun=gijun, cname=cname, model_res=model_res, text=text, mobumList=zip(id, title, usado))
 
 
 # 연관된 상담 보기

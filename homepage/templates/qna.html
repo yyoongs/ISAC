@@ -15,13 +15,15 @@
     <hr>
     <div id="a_section">
 
-        <div class="title"><b class="realTime">A</b>답변</div>
+        <div class="title"><b class="realTime" id="aTime">A</b>답변</div>
 
         <div id = "a" class="contents">
+            * 아이작에서 사용자님의 상황에 따른 해결 기준과 행동 요령을 알려드립니다.<br>아래에 제공되는 확률 값들은 신호등과 같습니다. 50% 이상의 확률 값이 나오는 부분들은 이용자님께 권고드리는 행동 방향입니다.<br>(만약 '추가 서류'와 '구제 서류 작성'이 50% 이상 나왔다면, 이용자님께 구제서류작성과 추가 서류 제출을 권고드린다는 의미입니다.)
+
             {% if cname != None %}
                 <div class="togglebtn">해결기준 확인하기</div>
                 <div id="gijunSection" class="hide">
-                    <b>{{ cname }}</b> 해결기준 중, 아래의 기준이 적합해 보입니다.<br>
+                    <b>{{ cname }}</b> 해결기준 중, 아래의 기준이 적합해 보입니다.<br><br>
                     {% autoescape false %}
                         {{ gijun | replace("|", "<br/>") | replace("@", "&nbsp;") | replace("#", "&ensp;") | replace("$", "&emsp;") }}
                     {% endautoescape %}
@@ -78,6 +80,13 @@
                             <div id = "pro_id4" class="pro_cls4 progress-value">{{ model_res[3] }}%</div>
                         </div>
                         <div class="text-center">구제 신청서류</div>
+                    </div>
+                </div>
+                <div class="row" id="answerText">
+                    <div class="col-sm-12">
+                        {% autoescape false %}
+                            {{ text | replace("|", "<br/>") | replace("@", "<b>") | replace("$", "</b>") }}
+                        {% endautoescape %}
                     </div>
                 </div>
             </div>
