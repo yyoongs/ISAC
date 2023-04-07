@@ -8,8 +8,7 @@
 ### Homepage UI
 
 ---
-
-![demo](/img/demo.png)<br>
+<img width="618" alt="Screen Shot 2023-04-07 at 4 45 23 PM" src="https://user-images.githubusercontent.com/48539539/230565926-29d4f951-1984-4830-9d68-5cdd70da8ad3.png">
 
 ### Models
 
