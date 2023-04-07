@@ -1,19 +1,27 @@
 # ISAC
+<img width="618" alt="Screen Shot 2023-04-07 at 4 45 23 PM" src="https://user-images.githubusercontent.com/48539539/230565926-29d4f951-1984-4830-9d68-5cdd70da8ad3.png">
 
-* INTEGRATED SYSTEM FOR ANSWERING CUSTOMER JUSTICE USING NLP
-* NLP를 통한 소비자 민원 자동 답변 시스템
 
 <br>
 
-### Homepage UI
+### INTEGRATED SYSTEM FOR ANSWERING CUSTOMER JUSTICE USING NLP
 
 ---
-<img width="618" alt="Screen Shot 2023-04-07 at 4 45 23 PM" src="https://user-images.githubusercontent.com/48539539/230565926-29d4f951-1984-4830-9d68-5cdd70da8ad3.png">
+#### NLP를 통한 소비자 민원 자동 답변 시스템
+> 한국데이터산업진흥원 주관 빅데이터 청년인재 프로그램
+> 개발기간 : 2019.07 - 2019.08
+
+
+### Teams
+---
+> 조용성
+> 곽기은
+> 박지영
+> 유원선
+> 김은경
 
 ### Models
-
 ---
-
 1. word2hybrid model
    * 입력한 제목을 기반으로 소비자민원센터에서 유사한 답변을 뽑아주는 모델
 2. word2criteria model
@@ -26,3 +34,9 @@
    * 4가지 모델의 아웃풋의 조합으로 답변 템플릿 생성
 
 <br>
+
+### Stacks 기술스택
+---
+BE 및 데이터 분석 :   <img src="https://img.shields.io/badge/python-3776AB?style=for-the-badge&logo=python&logoColor=white"> 
+
+FE :   <img src="https://img.shields.io/badge/Django-092E20?style=for-the-badge&logo=django&logoColor=white"> 
